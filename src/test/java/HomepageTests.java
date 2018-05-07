@@ -457,7 +457,7 @@ public class HomepageTests {
     //Test remove product from shopping cart.
 //does not work :(
     @Test
-    public  void testRemoveItem() throws InterruptedException {
+    public void testRemoveItem() throws InterruptedException {
         WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
         productLink.click();
         WebElement addToCartButtonLink = driver.findElement(By.xpath("//*[@id=\"AddToCartForm\"]/div[1]/div[2]/div[4]/button"));
@@ -472,7 +472,7 @@ public class HomepageTests {
         WebElement actualConfirmMessage = driver.findElement(By.className("alert-success"));
         Alert popUp = driver.switchTo().alert();
         popUp.accept();
-        assertEquals(" Item successfully removed.",actualConfirmMessage.getText());
+        assertEquals(" Item successfully removed.", actualConfirmMessage.getText());
 
     }
 
