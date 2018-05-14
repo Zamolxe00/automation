@@ -2,7 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91c33c5c-d453-4e03-ae41-6bb5caef9c32" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/LoginTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ProductPagesTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/SearchTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/ShoppingCartTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/TestPromotionsPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/TestimonialsPageTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/CategoryPagesTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/CategoryPagesTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/HomepageTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/HomepageNavigationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/HomepageTests.class" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,26 +24,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="HomepageTests.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/HomepageTests.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -41,14 +33,25 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>image</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/java/HomepageTests.java" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
+        <option value="$PROJECT_DIR$/src/test/java/HomepageTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/utils/Utils.java" />
+        <option value="$PROJECT_DIR$/src/test/java/HomepageNavigationTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/LoginTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/CategoryPagesTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ProductPagesTests.java" />
+        <option value="$PROJECT_DIR$/src/test/java/ShoppingCartTests.java" />
       </list>
     </option>
   </component>
@@ -80,8 +83,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -146,16 +149,33 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.HomepageTests.testOptionalPersonalization">
+  <component name="RunManager" selected="JUnit.ShoppingCartTests.testRemoveItem">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
-    <configuration name="HomepageTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LoginTests.testAddDeliveryAddress" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="automation" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="HomepageTests" />
+      <option name="MAIN_CLASS_NAME" value="LoginTests" />
+      <option name="METHOD_NAME" value="testAddDeliveryAddress" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="ProductPagesTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="automation" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ProductPagesTests" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -167,13 +187,47 @@
       </option>
       <patterns />
     </configuration>
-    <configuration name="HomepageTests.testOptionalPersonalization" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ProductPagesTests.testPinterestShare" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="automation" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="HomepageTests" />
-      <option name="METHOD_NAME" value="testOptionalPersonalization" />
+      <option name="MAIN_CLASS_NAME" value="ProductPagesTests" />
+      <option name="METHOD_NAME" value="testPinterestShare" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="ShoppingCartTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="automation" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ShoppingCartTests" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="ShoppingCartTests.testRemoveItem" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="automation" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ShoppingCartTests" />
+      <option name="METHOD_NAME" value="testRemoveItem" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -223,13 +277,19 @@
       <listeners />
     </configuration>
     <list>
-      <item itemvalue="JUnit.HomepageTests" />
-      <item itemvalue="JUnit.HomepageTests.testOptionalPersonalization" />
+      <item itemvalue="JUnit.LoginTests.testAddDeliveryAddress" />
+      <item itemvalue="JUnit.ProductPagesTests" />
+      <item itemvalue="JUnit.ProductPagesTests.testPinterestShare" />
+      <item itemvalue="JUnit.ShoppingCartTests" />
+      <item itemvalue="JUnit.ShoppingCartTests.testRemoveItem" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.HomepageTests.testOptionalPersonalization" />
-        <item itemvalue="JUnit.HomepageTests" />
+        <item itemvalue="JUnit.ShoppingCartTests.testRemoveItem" />
+        <item itemvalue="JUnit.ShoppingCartTests" />
+        <item itemvalue="JUnit.ProductPagesTests.testPinterestShare" />
+        <item itemvalue="JUnit.ProductPagesTests" />
+        <item itemvalue="JUnit.LoginTests.testAddDeliveryAddress" />
       </list>
     </recent_temporary>
   </component>
@@ -255,53 +315,64 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="HomepageTests - 2018.05.07 at 13h 36m 29s.xml">
-      <configuration name="HomepageTests" configurationId="JUnit" />
+    <history-entry file="CategoryPagesTests_checkCategoryListings - 2018.05.14 at 15h 09m 22s.xml">
+      <configuration name="CategoryPagesTests.checkCategoryListings" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HomepageTests - 2018.05.07 at 13h 41m 50s.xml">
-      <configuration name="HomepageTests" configurationId="JUnit" />
+    <history-entry file="CategoryPagesTests_checkProductListings - 2018.05.14 at 15h 09m 48s.xml">
+      <configuration name="CategoryPagesTests.checkProductListings" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HomepageTests - 2018.05.07 at 13h 51m 14s.xml">
-      <configuration name="HomepageTests" configurationId="JUnit" />
+    <history-entry file="HomepageNavigationTests - 2018.05.14 at 15h 13m 25s.xml">
+      <configuration name="HomepageNavigationTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HomepageTests - 2018.05.07 at 14h 29m 31s.xml">
-      <configuration name="HomepageTests" configurationId="JUnit" />
+    <history-entry file="LoginTests - 2018.05.14 at 15h 15m 17s.xml">
+      <configuration name="LoginTests" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HomepageTests - 2018.05.07 at 14h 48m 42s.xml">
-      <configuration name="HomepageTests" configurationId="JUnit" />
+    <history-entry file="LoginTests_testAddDeliveryAddress - 2018.05.14 at 15h 16m 56s.xml">
+      <configuration name="LoginTests.testAddDeliveryAddress" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HomepageTests_testOptionalPersonalization - 2018.05.07 at 15h 25m 31s.xml">
-      <configuration name="HomepageTests.testOptionalPersonalization" configurationId="JUnit" />
+    <history-entry file="ProductPagesTests - 2018.05.14 at 15h 23m 25s.xml">
+      <configuration name="ProductPagesTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ProductPagesTests_testPinterestShare - 2018.05.14 at 15h 25m 38s.xml">
+      <configuration name="ProductPagesTests.testPinterestShare" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ShoppingCartTests - 2018.05.14 at 15h 27m 00s.xml">
+      <configuration name="ShoppingCartTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ShoppingCartTests_testRemoveItem - 2018.05.14 at 15h 27m 43s.xml">
+      <configuration name="ShoppingCartTests.testRemoveItem" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ShoppingCartTests_testRemoveItem - 2018.05.14 at 15h 30m 53s.xml">
+      <configuration name="ShoppingCartTests.testRemoveItem" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1366" height="741" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info anchor="right" id="Palette" />
+      <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" weight="0.32903227" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info id="Image Layers" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" weight="0.329429" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32903227" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info id="Image Layers" order="2" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" order="3" weight="0.329429" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32903227" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info id="Capture Tool" />
-      <window_info id="Designer" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="Designer" order="2" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24597365" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" />
-      <window_info anchor="right" id="Theme Preview" />
+      <window_info id="UI Designer" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
     </layout>
@@ -313,11 +384,36 @@
     <MESSAGE value="Added Project Files" />
     <option name="LAST_COMMIT_MESSAGE" value="Added Project Files" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="4" />
+    </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>categoryItems.get(0).findElement(By.className(&quot;image&quot;))</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>categoryItems.get(0)</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/HomepageTests.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/HomepageNavigationTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
+        <state relative-caret-position="435">
           <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+          <folding>
+            <element signature="e#5107#5108#0" expanded="true" />
+            <element signature="e#5176#5177#0" expanded="true" />
+            <element signature="e#5254#5255#0" expanded="true" />
+            <element signature="e#5329#5330#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -325,6 +421,105 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/utils/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-api/3.11.0/selenium-api-3.11.0.jar!/org/openqa/selenium/WebDriver.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="30" column="35" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ProductPagesTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2445">
+          <caret line="167" column="25" selection-start-line="167" selection-start-column="25" selection-end-line="167" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/SearchTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/CategoryPagesTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="151" column="5" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="5" />
+          <folding>
+            <element signature="e#3190#3202#0" expanded="true" />
+            <element signature="e#4159#4171#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/HomepageNavigationTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2415">
+          <caret line="173" selection-start-line="173" selection-end-line="173" />
+          <folding>
+            <element signature="e#5107#5108#0" expanded="true" />
+            <element signature="e#5176#5177#0" expanded="true" />
+            <element signature="e#5254#5255#0" expanded="true" />
+            <element signature="e#5329#5330#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/ShoppingCartTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1200">
+          <caret line="84" column="85" selection-start-line="84" selection-start-column="85" selection-end-line="84" selection-end-column="85" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/TestimonialsPageTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="34" selection-start-column="34" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/TestPromotionsPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="31" selection-start-column="31" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/LoginTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="131" column="5" selection-start-line="131" selection-start-column="5" selection-end-line="131" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

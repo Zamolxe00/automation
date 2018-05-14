@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static junit.framework.TestCase.assertTrue;
@@ -17,7 +19,7 @@ public class CategoryPagesTests {
 
     @BeforeClass
     public static void setUpPath() {
-        System.setProperty("webdriver.chrome.driver", "src/resources/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/resources/chromedriver");
     }
 
     @AfterClass
@@ -36,7 +38,7 @@ public class CategoryPagesTests {
 //Test Category Title
 
     @Test
-    public void checkCategoryTitlePresent () {
+    public void checkCategoryTitlePresent() {
         driver.get("http://www.theperfecturn.com/memorial-jewelry");
         assertTrue(isElementPresent(By.className("category-title")));
     }
@@ -45,7 +47,7 @@ public class CategoryPagesTests {
 //Test Click Category Title goes to description
 
     @Test
-    public void checkCategoryDescription () {
+    public void checkCategoryDescription() {
         driver.get("http://www.theperfecturn.com/memorial-jewelry");
         WebElement categoryDescription = driver.findElement(By.xpath("//*[@id=\"MainContainer\"]/h3/a"));
         categoryDescription.click();
@@ -57,7 +59,7 @@ public class CategoryPagesTests {
 
     //    test cookie trail
     @Test
-    public void checkYouAreHereIsPresent () {
+    public void checkYouAreHereIsPresent() {
         driver.get("http://www.theperfecturn.com/memorial-jewelry");
         WebElement cookieTrailAvailable = driver.findElement(By.className("breadcrumb-label"));
         assertTrue(cookieTrailAvailable.isDisplayed());
@@ -88,13 +90,65 @@ public class CategoryPagesTests {
     }
 
 
-// test product listing in category results
+    // test product listing in category results
+    @Test
+    public void checkCategoryListings() {
+        driver.get("http://www.theperfecturn.com/memorial-jewelry");
+        List<WebElement> productGrid = driver.findElements(By.tagName("a"));
+        List<WebElement> categoryItems = new ArrayList<WebElement>();
+        for (WebElement prod : productGrid)
+            if (prod.getAttribute("class").contains("category-item"))
+                categoryItems.add(prod);
+        assertTrue(categoryItems.size() != 0);
+        categoryItems.get(0).click();
+        assertTrue(driver.getCurrentUrl().contains("-c-"));
+    }
 
     @Test
-    public void checkProductImage() {
+    public void checkProductListings() {
         driver.get("http://www.theperfecturn.com/memorial-jewelry");
-        WebElement productCard = driver.findElement(By.className("product-item col-4 d-flex flex-column"));
-        WebElement productTitle = driver.findElement(By.className("name"));
+        List<WebElement> productGrid = driver.findElements(By.tagName("a"));
+        List<WebElement> productItems = new ArrayList<WebElement>();
+        for (WebElement prod : productGrid)
+            if (prod.getAttribute("class").contains("product-item"))
+                productItems.add(prod);
+        assertTrue(productItems.size() != 0);
+        productItems.get(0).click();
+        assertTrue(driver.getCurrentUrl().contains("-p-"));
+    }
+
+
+//Category page Test
+// Pets  Cremation Urns :Test Sorting Option
+//Sort by rating  lowest first + filter by color
+
+    @Test
+    public void testFilterColor() {
+        driver.get("http://www.theperfecturn.com/cremation-urn-finder?sort=reviews&sort_order=desc&filters=&action=results&type=pet");
+        WebElement color = driver.findElement(By.partialLinkText("Black"));
+        color.click();
+        List<WebElement> ratingList = driver.findElements(By.className("reviewers"));
+        List<Double> ratings = new ArrayList<Double>();
+        for (WebElement ratingElement : ratingList) {
+            String ratingString = ratingElement.getText().replace('(', ' ').replace(')', ' ').trim();
+
+            ratings.add(Double.parseDouble(ratingString));
+        }
+        for (int i = 0; i < ratings.size() - 1; i++) {
+            assertTrue(ratings.get(i) >= ratings.get(i + 1));
+        }
+    }
+
+    //Category page Test
+//Test  Start over button
+    @Test
+    public void testStartOverButton() {
+        driver.get("http://www.theperfecturn.com/cremation-urn-finder?type=pet&material=Biodegradable&filters=243&action=results");
+        WebElement color = driver.findElement(By.partialLinkText("Black"));
+        color.click();
+        WebElement startOver = driver.findElement(By.linkText("Start over"));
+        startOver.click();
+        assertTrue(driver.getCurrentUrl().contains("cremation-urn-finder"));
     }
 
     @After
