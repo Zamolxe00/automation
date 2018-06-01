@@ -1,15 +1,13 @@
 import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class ProductPagesTests {
     private WebDriver driver;
@@ -17,7 +15,7 @@ public class ProductPagesTests {
 
     @BeforeClass
     public static void setUpPath() {
-        System.setProperty("webdriver.chrome.driver", "src/resources/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
     }
 
     @AfterClass
@@ -32,238 +30,214 @@ public class ProductPagesTests {
         driver.get("http://www.theperfecturn.com/");
     }
 
+    //Test Cookie trail (  availability )
     @Test
     public void assertCookieTrail() {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
-        assertTrue(isElementPresent(By.xpath("//*[@id=\"MainContainer\"]/ol")));
-
+        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
+        categoryProducts.get(0).click();
+        assertTrue(isElementPresent(By.className("breadcrumb")));
     }
 
-// test product details
-//test product name
-
+    //assert product name
     @Test
     public void assertProductName() {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
+        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
+        categoryProducts.get(0).click();
         assertTrue(isElementPresent(By.id("ProductName")));
     }
 
-
-    //test product price
-
-
+    //assert  product price
     @Test
     public void assertProductPrice() {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
+        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
+        categoryProducts.get(0).click();
         assertTrue(isElementPresent(By.xpath("//*[@id=\"AddToCartForm\"]/div[1]/div[2]/div[1]")));
     }
 
-
-// test product main image
-
-
-    @Test
-    public void assertProductMainImage() {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
-        assertTrue(isElementPresent(By.xpath("//*[@id=\"pageProductCarousel\"]/div[2]/div[8]/img")));
-    }
-
-//  test Product Expand  Image
-
+    //  test  Expand and Scroll trough Product Image
     @Test
     public void assertProductFancyBox() throws InterruptedException {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
-        WebElement imageLink = (driver.findElement(By.xpath("//*[@id=\"pageProductCarousel\"]/div[2]/div[1]/img")));
+        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
+        categoryProducts.get(0).click();
+        WebElement imageLink = driver.findElement(By.id("pageProductCarousel"));
         imageLink.click();
-        Thread.sleep(10000);
-        assertTrue(driver.findElement(By.className("carousel-control-next-icon")).isDisplayed());
-    }
-
-//test Product Scroll Image
-
-    @Test
-    public void assertProductScrollImage() throws InterruptedException {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
-        WebElement imageLink = (driver.findElement(By.xpath("//*[@id=\"pageProductCarousel\"]/div[2]/div[1]/img")));
-        imageLink.click();
-        Thread.sleep(10000);
+        Thread.sleep(100);
         WebElement scrollLink = driver.findElement(By.className("carousel-control-next-icon"));
+        Thread.sleep(100);
         scrollLink.click();
-        assertTrue(driver.findElement(By.className("img-fluid")).isDisplayed());
+        Thread.sleep(100);
+        scrollLink.click();
+        assertTrue(scrollLink.isDisplayed());
     }
 
-    // test Add to cart button
+    // Add product to cart asert Just Added page contains same product
     @Test
     public void testAddToCart() {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
-        WebElement addToCartButtonLink = driver.findElement(By.xpath("//*[@id=\"AddToCartForm\"]/div[1]/div[2]/div[4]/button"));
-        addToCartButtonLink.click();
-        assertTrue(driver.getCurrentUrl().contains("product"));
-
+        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
+        categoryProducts.get(0).click();
+        String productName = driver.findElement(By.id("ProductName")).getText();
+        WebElement addToCartButton = driver.findElement(By.className("AddToCartAction"));
+        addToCartButton.click();
+        String justAddedProductName = driver.findElement(By.className("details")).findElement(By.className("name")).getText();
+        assertTrue(productName.contains(justAddedProductName));
     }
 
-
-    // Test Product Review
-    @Test
-    public void testProductReview() {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
-        assertTrue(isElementPresent(By.xpath("//*[@id=\"AddToCartForm\"]/div[1]/div[2]/div[2]")));
-    }
-
-
-    // Test Product Review
+//Test Product Review Redirection
 
     @Test
-    public void testProductReviewLink() {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
-        WebElement reviewLink = driver.findElement(By.xpath("//*[@id=\"AddToCartForm\"]/div[1]/div[2]/div[2]/a"));
-        reviewLink.click();
+    public void testReviews() {
+        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
+        categoryProducts.get(0).click();
+        WebElement reviewStars = driver.findElement(By.className("rating"));
+        reviewStars.click();
+        assertTrue(driver.getCurrentUrl().contains("#Reviews"));
     }
 
-// to assert that goes to review section
-
-
-    // test it oppens pop up low price guarantee
+    // Test Low Price Guaranteed pop-up oppens and is usable
     @Test
     public void testLowPriceGuaranteedPopUp() throws InterruptedException {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
+        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
+        categoryProducts.get(0).click();
         WebElement LowPriceGuaranteedPopUpLink = driver.findElement(By.className("low-price-guarantee"));
         LowPriceGuaranteedPopUpLink.click();
         Thread.sleep(5000);
         assertTrue(driver.findElement(By.id("lowPriceGuaranteeModal")).getAttribute("class").contains("show"));
+        WebElement link = driver.findElement(By.id("merchantsLink"));
+        WebElement shippingCost = driver.findElement(By.id("merchantsShipping"));
+        WebElement merchantsPrice = driver.findElement(By.id("merchantsPrice"));
+        WebElement yourEmail = driver.findElement(By.id("email"));
+        WebElement submitButton = driver.findElement(By.id("lowPriceGuaranteeModal")).findElement(By.className("btn-standard"));
+        link.clear();
+        link.sendKeys("http://www.theperfecturn.com/amethyst-grecian-marble-keepsake-the-perfect-urn-vault-p-2653.html");
+        shippingCost.click();
+        shippingCost.clear();
+        shippingCost.sendKeys("10");
+        merchantsPrice.click();
+        merchantsPrice.clear();
+        merchantsPrice.sendKeys("10");
+        yourEmail.click();
+        yourEmail.clear();
+        yourEmail.sendKeys("ielena.gheorghe@email.com");
+        submitButton.click();
+        String actualConfirmMessage = driver.findElement(By.className("alert-container")).getAttribute("innerText");
+        assertTrue(actualConfirmMessage.contains("Thank you. We have received your submission and will be responding promptly. During normal business hours of 8am - 5pm Central Time on Monday - Friday your Low Price Guarantee will reviewed within 1 business day."));
     }
 
 
-    // test Product Index available
+    // test Product Index - Click on Volume available
     @Test
     public void testProductIndex() {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
-        assertTrue(isElementPresent(By.id("ProductIndexNav")));
+        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
+        categoryProducts.get(0).click();
+        WebElement insideVolume = driver.findElement(By.id("ProductIndexNav")).findElement(By.tagName("a"));
+        insideVolume.click();
+        assertTrue(driver.getCurrentUrl().contains("Volume"));
     }
-
-
-    //   Test Product Volume
-    @Test
-    public void testProductVolume() {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
-        assertTrue(isElementPresent(By.id("Volume")));
-
-    }
-
 // Test Pinterest  Share
 
     @Test
     public void testPinterestShare() {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
+        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
+        categoryProducts.get(0).click();
         String handle = driver.getWindowHandle();
         List<WebElement> socialButtons = driver.findElement(By.id("Sharing")).findElements(By.tagName("a"));
-        socialButtons.get(0).click();
+        socialButtons.get(1).click();
         for (String window : driver.getWindowHandles())
             driver.switchTo().window(window);
         assertTrue(driver.getCurrentUrl().contains("pinterest"));
     }
 
-
-    //Test Product information
+    //Test Asert Product information includes Product Details in Product Information Body
     @Test
     public void testProductInformation() {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
-        assertTrue(isElementPresent(By.id("Information")));
+        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
+        categoryProducts.get(0).click();
+        String information = driver.findElement(By.id("Information")).getText();
+        String details = driver.findElement(By.id("Information")).findElement(By.className("details")).getText();
+        assertTrue(information.contains(details));
     }
-
 
     // Test video overlay
     @Test
     public void testVideoOverlay() {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
-        WebElement productVideoLink = driver.findElement(By.id("//*[@id=\"pageProductCarousel\"]/a/span"));
+        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
+        categoryProducts.get(0).click();
+        WebElement productVideoLink = driver.findElement(By.className("play-video"));
         productVideoLink.click();
+        List<String> browserTabs = new ArrayList<String>(driver.getWindowHandles());
+        driver.switchTo().window(browserTabs.get(1));
         assertTrue(driver.getCurrentUrl().contains("youtube"));
+        driver.close();
+
     }
 
-// Test discount options (bundle shop)
-
+    // Test discount options (add to cart in bundle )
     @Test
     public void testDiscountOptions() {
         driver.get("http://www.theperfecturn.com/angel-wing-sterling-silver-cremation-jewelry-engravable-p-7120.html");
         WebElement DiscountOptionsLink = driver.findElement(By.id("qd-buy-5")).findElement(By.tagName("button"));
         DiscountOptionsLink.click();
-        assertTrue(driver.getCurrentUrl().contains("product"));
+        WebElement CartImageLink = driver.findElement(By.id("ShoppingCartIcon"));
+        CartImageLink.click();
+        String value = driver.findElement(By.className("item")).findElement(By.className("quantity")).findElement(By.tagName("input")).getAttribute("value");
+        assertEquals("5", value);
     }
+///does not work correct for assert !!!
 
-    //Product with options (confirm personalization options available )
+    //Select  personalization options on product
     @Test
     public void testPersonalizationButonAvailable() {
-        WebElement productLink = driver.findElement(By.xpath("//*[@id=\"Homepage\"]/div[3]/div[1]/div[2]/a/div[1]/img"));
-        productLink.click();
-        WebElement productOptions = driver.findElement(By.xpath("//*[@id=\"AddToCartForm\"]/div[1]/div[2]/div[4]/a"));
-        productOptions.click();
-        assertTrue(isElementPresent(By.xpath("//*[@id=\"Options\"]/div[1]")));
+        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
+        categoryProducts.get(0).click();
+        WebElement personalizeButton = driver.findElement(By.linkText("Personalize"));
+        personalizeButton.click();
+        assertTrue(driver.getCurrentUrl().contains("Options"));
     }
 
     //Order Product with options (select  personalization options on product )
     @Test
     public void testOptionalPersonalization() {
-        driver.get("http://www.theperfecturn.com/dog-bone-photo-engraved-pendant-silver-p-2304.html");
-        Select dropdown = new Select(driver.findElement(By.id("select-1023")));
-        dropdown.selectByVisibleText("Block Font (+$9.95)");
-        WebElement addToCartButtonDown = driver.findElement(By.xpath("//*[@id=\"Options\"]/div[2]/button"));
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("Options")));
+        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
+        categoryProducts.get(0).click();
+        String productName = driver.findElement(By.id("ProductName")).getText();
+        WebElement choosePlaqueStyle = driver.findElement(By.id("select-1550"));
+        Select dropdownPlaqueStyle = new Select(driver.findElement(By.id("select-1550")));
+        dropdownPlaqueStyle.selectByIndex(1);
+        WebElement addToCartButtonDown = driver.findElement(By.className("AddToCartAction"));
         addToCartButtonDown.click();
-        assertTrue(isElementPresent(By.className("added-item")));
+        String justAddedProductName = driver.findElement(By.className("details")).findElement(By.className("name")).getText();
+        assertTrue(productName.contains(justAddedProductName));
     }
 
-
     //Order Product with mandatory options (select  mandatory option on product )
-    //this includes checking of the SC
     @Test
     public void testMandatoryPersonalization() {
         driver.get("http://www.theperfecturn.com/photo-engraved-pendant-gold-rectangle-p-2720.html");
-        WebElement selectDropDown = driver.findElement(By.id("Options")).findElement(By.className("marked")).findElement(By.tagName("select"));
-        Select dropdown = new Select(driver.findElement(By.id("Options")).findElement(By.className("marked")).findElement(By.tagName("select")));
-        dropdown.selectByIndex(1);
-        selectDropDown.click();
-        selectDropDown.click();
+        String productName = driver.findElement(By.id("ProductName")).getText();
+        WebElement chooseArtWork = driver.findElement(By.id("select-1186"));
+        Select dropdownchooseArtWork = new Select(driver.findElement(By.id("select-1186")));
+        dropdownchooseArtWork.selectByIndex(1);
         WebElement addToCartButtonDown = driver.findElement(By.className("AddToCartAction"));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].removeAttribute('disabled','disabled')", addToCartButtonDown);
-        //WebDriverWait wait = new WebDriverWait(driver, 30);
-        //wait.until(ExpectedConditions.elementToBeClickable(addToCartButtonDown));
         addToCartButtonDown.click();
-        assertTrue(isElementPresent(By.className("added-item")));
-        WebElement CartImageLink = driver.findElement(By.id("ShoppingCartIcon"));
-        CartImageLink.click();
-        assertTrue(isElementPresent(By.linkText("Photo Engraved Pendant - Gold Rectangle")));
+        String justAddedProductName = driver.findElement(By.className("details")).findElement(By.className("name")).getText();
+        assertTrue(productName.contains(justAddedProductName));
     }
 
-    //photo upload
-//
+    //Test Photo Upload on product
     @Test
     public void testPhotoUpload() {
         driver.get("http://www.theperfecturn.com/photo-engraved-pendant-gold-rectangle-p-2720.html");
+        String winHandleBefore = driver.getWindowHandle();
         WebElement uploadPhotolink = driver.findElement(By.id("upload-photo-tab"));
         uploadPhotolink.click();
         WebElement chooseFile = driver.findElement(By.id("PhotoUploadButton"));
         chooseFile.click();
-        //       chooseFile.sendKeys("C:\Users\VirginiaElena\Desktop.gif");
 
     }
+//to be improved
+
 
     @After
     public void tearDown() {
