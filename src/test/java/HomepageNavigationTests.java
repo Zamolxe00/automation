@@ -19,7 +19,7 @@ public class HomepageNavigationTests {
 
     @BeforeClass
     public static void setUpPath() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+        Utils.setDriverPath();
     }
 
     @AfterClass
@@ -35,8 +35,12 @@ public class HomepageNavigationTests {
     }
 
 
-    //Test header
-// Test Click Help Link and Header Logo
+//Test header
+//Test Click Help Link and Header Logo
+//This process describes following steps:
+//-> go to Homepage-> search for Help link in header  -> click on Help-> assert that the link oppened is the Help page
+//-> Search for Header Logo ->Click on Logo-> assert that the page oppened is the Homepage
+
     @Test
     public void testClickHelpAndLogo() {
         WebElement helpLink = driver.findElement(By.linkText("Help"));
@@ -47,7 +51,11 @@ public class HomepageNavigationTests {
         assertTrue(driver.getCurrentUrl().contains("theperfecturn"));
     }
 
-    //Test Click Promotions Link and Home Link
+//Test Click Promotions Link and Home Link
+//This process describes following steps:
+// -> go to Homepage-> search for Promotions link in header  -> click on Promotions > assert that the link oppened is the Promotions  page
+//-> Search for Home link in header ->Click on Home > assert that the page oppened is the Homepage
+
     @Test
     public void testClickPromotionsAndHome() {
         WebElement PromotionsLink = driver.findElement(By.linkText("Promotions"));
@@ -58,7 +66,11 @@ public class HomepageNavigationTests {
         assertTrue(driver.getCurrentUrl().contains("theperfecturn"));
     }
 
-    //Test Click Contact us Link goes to correct page
+//Test Click Contact us Link goes to correct page
+//This process describes following steps:
+// -> go to Homepage-> search for Contact us  link in header -> click on Contact us
+//-> assert that the link oppened is the Contact Us  page
+
     @Test
     public void testClickContactUs() {
         WebElement ContactUsLink = driver.findElement(By.linkText("Contact Us"));
@@ -66,7 +78,11 @@ public class HomepageNavigationTests {
         assertTrue(driver.getCurrentUrl().contains("contact-us"));
     }
 
-    //Test Click My Profile  Link goes to correct page
+//Test Click My Profile  Link goes to correct page
+//This process describes following steps:
+//-> go to Homepage-> search for My Profile link in header -> click on My profile
+//-> assert that the link oppened is the Login page anf that the page title is Login
+
     @Test
     public void testClickMyProfile() {
         WebElement myProfileLink = driver.findElement(By.linkText("My Profile"));
@@ -75,23 +91,35 @@ public class HomepageNavigationTests {
         assertTrue(driver.getCurrentUrl().contains("login"));
     }
 
-    //Test Click Cart image  goes to correct page
+//Test Click Cart icon  goes to correct page
+//This process describes following steps:
+//-> go to Homepage-> search for Cart icon  in header -> click on cart icon
+//-> assert that the link oppened is the Shopping Cart pag
+
     @Test
-    public void testClickCartImage() {
+    public void testClickCartIcon() {
         WebElement CartImageLink = driver.findElement(By.id("ShoppingCartIcon"));
         CartImageLink.click();
         assertTrue(driver.getCurrentUrl().contains("cart"));
     }
 
-    //Test Click Cart Link  goes to correct page
+//Test Click Cart Link  goes to correct page
+//This process describes following steps:
+// -> go to Homepage-> search for “x items” in your cart link in header -> click on “x items” link
+//-> assert that the link oppened is the Shopping Cart page
+
     @Test
-    public void testClickCartItem() {
+    public void testClickCartLink() {
         WebElement CartItemLink = driver.findElement(By.id("ShoppingCart"));
         CartItemLink.click();
         assertTrue(driver.getCurrentUrl().contains("cart"));
     }
 
-    //Test Header Oppens Live Chat
+//Test Header Live Chat
+//This process describes following steps:
+// -> go to Homepage-> search for “Live Chat”   in header -> click on Live Chat
+//-> confirm that live chat box oppens
+
     @Test
     public void testHeaderLiveChatClick() throws InterruptedException {
         WebElement LiveChatLink = driver.findElement(By.className("live-chat-support-banner"));
@@ -104,7 +132,11 @@ public class HomepageNavigationTests {
         driver.switchTo().window(winHandleBefore);
     }
 
-    //Test Header Badges (Bizrate Redirection)
+//Test Header Badges (Bizrate Redirection)
+//This process describes following steps:
+// -> go to Homepage-> search for “Bizrate icon ”   in header -> click on Bizrate
+//-> confirm that new page oppen is the Bizrate page
+
     @Test
     public void testBizrateRedirection() throws InterruptedException {
         WebElement likeButton = driver.findElement(By.id("header-bizrate-second-link"));
@@ -117,42 +149,40 @@ public class HomepageNavigationTests {
         driver.switchTo().window(winHandleBefore);
     }
 
-    // Test footer links (redirection correct)
-//Catalog request
-    @Test
-    public void testCatalogRequest() {
-        WebElement CatalogRequestLink = driver.findElement(By.partialLinkText("Catalog"));
-        CatalogRequestLink.click();
-        assertTrue(driver.getCurrentUrl().contains("catalog"));
-    }
+//Test Footer
+//Test footer links (user not logged)
+//This process describes following steps:
+// -> go to Homepage-> search for Address Book  in footer -> click Address Book
+//-> confirm that redirects to Login Page -> Search for Site Map in footer -> Click on Site Map
+//-> Confirm that sitemap page oppens
 
-    // Address Book
     @Test
-    public void testAddressBook() {
+    public void testFooterLinks() {
         WebElement AddressBookLink = driver.findElement(By.linkText("Address Book"));
         AddressBookLink.click();
         assertTrue(driver.findElement(By.className("main-banner")).getText().contains("Welcome"));
-    }
-//SiteMap
-
-    @Test
-    public void testSiteMap() {
         WebElement SiteMapLink = driver.findElement(By.partialLinkText("Map"));
         SiteMapLink.click();
         assertTrue(driver.getCurrentUrl().contains("sitemap"));
-
     }
 
-    //  Test Footer Social Media Badges ( Facebook)
+//Test Footer Social Media Badges ( Facebook))️
+//This process describes following steps:
+//-> go to Homepage-> search for “Facebook  icon ”   in footer -> click on Facebook
+//-> confirm that new page oppen is the Perfect Memorials Facebook page
+
     @Test
     public void testFacebookRedirection() {
         WebElement FacebookRedirectionLink = driver.findElement(By.partialLinkText("Facebook"));
         FacebookRedirectionLink.click();
-        assertTrue(driver.getCurrentUrl().contains("facebook"));
-
+        assertTrue(driver.getCurrentUrl().contains("facebook.com/PerfectMemorials"));
     }
 
-    // Test Footer Bussiness partners (TrustWave)
+//Test Footer Bussiness partners (TrustWave)
+//This process describes following steps:
+//-> go to Homepage-> search for “TrustWave icon ”   in footer -> click on TrustWave icon
+//-> confirm that trustWave  box oppens -> closes the tab
+
     @Test
     public void testTrustWaveRedirection() throws InterruptedException {
         WebElement TrustWaveRedirection = driver.findElement(By.id("trustwaveSealImage"));
@@ -166,32 +196,44 @@ public class HomepageNavigationTests {
         driver.switchTo().window(winHandleBefore);
     }
 
+// Test Footer Payment Methods (availability)
+//This process describes following steps:
+//-> go to Homepage-> search for Payment Methods   in footer -> confirm that Payment Methods are displayed in Homepage footer
+
     @Test
     public void testPaymentMethodsBadgeAvailable() {
         WebElement PaymentMethodsBadgeAvailableLink = driver.findElement(By.className("payment-methods"));
         assertTrue(PaymentMethodsBadgeAvailableLink.isDisplayed());
-
     }
 
-    //Content
-// Test  4tell
-// Solution Implemented
+//Content
+//Test  4tell:1 Solution Implemented
+//This process describes following steps:
+// -> go to Homepage-> search 4Tell Carousel -> confirm that the 4Tell carousel is  displayed in Homepage
+
     @Test
     public void Assert4Tell() {
         assertTrue(isElementPresent(By.id("tout1_hm_4Tell")));
     }
 
-// Test  Product Promo
-// Test Select See  More Option
+//Test  Product Promo
+//Test Select See More Option
+// This process describes following steps:
+//-> go to Homepage-> search for “See More” list   -> click on first “See more” option on Homepage
+//-> assert that the page oppened is the Today's Specials page
 
     @Test
     public void testSeeMore() {
         List<WebElement> seeMoreLinks = driver.findElements(By.linkText("See more"));
         seeMoreLinks.get(0).click();
-        assertTrue(driver.getTitle().contains("Today's Specials"));
+            assertTrue(driver.getTitle().contains("Today's Specials"));
     }
 
-    // Test Select View More Option
+//Test Select View More Option
+//This process describes following steps:
+//-> go to Homepage-> search for “View More ” list   -> click on third “View more” option on Homepage
+//-> assert that the page oppened is the Today's Jewelry Specials page
+
     @Test
     public void testViewMore() {
         List<WebElement> viewMoreLinks = driver.findElements(By.linkText("View more"));
@@ -199,11 +241,17 @@ public class HomepageNavigationTests {
         assertTrue(driver.getTitle().contains("Today's Jewelry Specials"));
     }
 
-//Test Select Click here for Bio Urns
-//    @Test
-    //   public void testBioUrns() {
-    //   WebElement bioDegradableUrnsHere = driver.findElement(By.className("banner")).findElement(By.cssSelector(.));
-//}
+//Test Select Click here for Bio Urns  (includes link confirmation)
+//This process describes following steps:
+//-> go to Homepage-> search for Bio Urns banners  list   -> click on first Bio Urns  option on Homepage
+//-> assert that the page oppened is the Biodegradable EcoUrn Urns page
+
+    @Test
+    public void testBioUrns() {
+    List<WebElement> bioUrnsBanners = driver.findElements(By.className("banner"));
+       bioUrnsBanners.get(0).click();
+    assertTrue(driver.getTitle().contains("Biodegradable EcoUrn Urns"));}
+
 
     @After
     public void tearDown() {

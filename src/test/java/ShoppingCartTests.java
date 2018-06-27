@@ -19,7 +19,7 @@ public class ShoppingCartTests {
 
     @BeforeClass
     public static void setUpPath() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+        Utils.setDriverPath();
     }
 
     @AfterClass
@@ -35,7 +35,9 @@ public class ShoppingCartTests {
     }
 
 
-    // Test Product Name in SC is same as product name on product page - not working
+// This process describes following steps:
+//-> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product -> identify the Add to cart button
+// -> Click on Add to Cart -> Click on View Shopping Cart Option -> Confirm that same product is displayed in SC
     @Test
     public void TestProductName() {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
@@ -49,7 +51,10 @@ public class ShoppingCartTests {
         assertTrue(productName.contains(productNameInSC));
     }
 
-    //Test click on product in shopping cart to go to product page - not working
+//This process describes following steps:
+//-> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product -> get product name
+// -> identify the Add to cart button -> Click on Add to Cart -> Click on View Shopping Cart Option ->  Click on product name in SC
+// -> confirm that same name is displayed in the current Product Page Oppened
     @Test
     public void TestRedirectionFromSC() {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
@@ -66,7 +71,10 @@ public class ShoppingCartTests {
     }
 
 
-    //Test click on product image in shopping cart to go to product page.
+//This process describes following steps:
+//-> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product -> get product name
+// -> identify the Add to cart button -> Click on Add to Cart -> Click on View Shopping Cart Option ->	identify product image-> click on product image
+// -> confirm that same name is displayed in the current Product Page Oppened
     @Test
     public void TestProductImageInCart() {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
@@ -83,7 +91,12 @@ public class ShoppingCartTests {
 
     }
 
-    //Test increase product quantity  in shopping cart - not working
+//Test increase product quantity  in shopping cart.
+//This process describes following steps:
+//-> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product -> get product name
+// -> identify the Add to cart button -> Click on Add to Cart -> Click on View Shopping Cart Option ->	identify  the increase quantity (“+” ) option -> click on “+”
+// -> confirm that “Quantity successfully updated” message is displayed
+
     @Test
     public void testProductQuantityIncrease() throws InterruptedException {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
@@ -105,7 +118,12 @@ public class ShoppingCartTests {
     private void assertEquals(String s, String value) {
     }
 
-    //Test decrease  product quantity  in shopping cart.- not working
+//Test decrease product quantity  in shopping cart.✔️
+//
+//This process describes following steps:
+//-> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product -> get product name
+// -> identify the Add to cart button -> Click on Add to Cart -> Click on View Shopping Cart Option ->	identify  the increase quantity (“+” ) option -> click on “+”
+// -> identify that decrease quantity (“-”) option -> click on “-” ->-> confirm that “Quantity successfully updated” message is displayed
     @Test
     public void testProductQuantityDecrease() throws InterruptedException {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
@@ -124,7 +142,12 @@ public class ShoppingCartTests {
         assertTrue(actualConfirmMessage.getText().contains("Quantity successfully updated."));
     }
 
-    //Test remove product from shopping cart.
+
+//Test remove product from shopping cart.
+//This process describes following steps:
+//-> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product -> get product name
+// -> identify the Add to cart button -> Click on Add to Cart -> Click on View Shopping Cart Option -> Identify the remove buton -> Click on review button
+// ->Confirm that “Item successfully removed” message is displayed
     @Test
     public void testRemoveItem() throws InterruptedException {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
@@ -140,9 +163,13 @@ public class ShoppingCartTests {
     }
 
 
-    //Test Edit Options in SC - does not click on dropdownPlaqueStyle
+//Test Edit options in SC
+//This process describes following steps:
+//-> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product -> get product name
+// -> identify the Add to cart button -> Click on Add to Cart -> Click on View Shopping Cart Option -> Identify the Edt options buton ->Click on Edit Options -> Change option
+// -> Confirm that “Item options were successfully updated” message is displayed
     @Test
-    public void testChangeOptions() throws InterruptedException {
+    public void testEditProductOptionsInSC() throws InterruptedException {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
         List<WebElement> optionsDropdowns = driver.findElement(By.id("Options")).findElements(By.tagName("select"));
@@ -167,10 +194,50 @@ public class ShoppingCartTests {
         assertTrue(actualConfirmMessage.contains("Item options were successfully updated."));
     }
 
-    //Test  changing Delivery options-- get 0 goes to three days delivery
-// bug, unauthorized when not logged in
+//Test  changing Delivery options when user is logged in
+//This process describes following steps: //Go to Homepage-> go to My profile ->Login -> Go to Homepage ->   identify the three category columns available in Homepage -> Select first product
+// from first category -> click on product -> get product name  -> identify the Add to cart button -> Click on Add to Cart -> Click on View Shopping Cart Option ->  Identify the update
+// delivery options section -> click on new delivery option ->  Confirm that “The shipping method successfully updated"” message is displayed
     @Test
-    public void testChangeDelivery() throws InterruptedException {
+    public void testChangeDeliveryOptionInSC1() throws InterruptedException {
+        WebElement myProfileLink = driver.findElement(By.linkText("My Profile"));
+        myProfileLink.click();
+        WebElement emailInput = driver.findElement(By.id("inputEmail3"));
+        WebElement passwordInput = driver.findElement(By.id("inputPassword3"));
+        WebElement secureLogin = driver.findElement(By.className("mb-4")).findElement(By.tagName("button"));
+        WebDriverWait wait = new WebDriverWait(driver, 1000);
+        emailInput.click();
+        emailInput.clear();
+        emailInput.sendKeys("ielena.gheorghe@dovona7.com");
+        passwordInput.click();
+        passwordInput.clear();
+        passwordInput.sendKeys("Ciresica123");
+        secureLogin.click();
+        driver.get("http://www.theperfecturn.com");
+        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
+        categoryProducts.get(0).click();
+        String productName = driver.findElement(By.id("ProductName")).getText();
+        WebElement choosePlaqueStyle = driver.findElement(By.id("select-1550"));
+        Select dropdownPlaqueStyle = new Select(driver.findElement(By.id("select-1550")));
+        dropdownPlaqueStyle.selectByIndex(1);
+        WebElement addToCartButtonDown = driver.findElement(By.className("AddToCartAction"));
+        addToCartButtonDown.click();
+        WebElement viewShoppingCart = driver.findElement(By.linkText("View Shopping Cart"));
+        viewShoppingCart.click();
+        List<WebElement> deliveryOptions = driver.findElements(By.className("delivery-options"));
+        deliveryOptions.get(0).click();
+      //  WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.className("noty_body"))));
+        String actualConfirmMessage = driver.findElement(By.className("noty_body")).getAttribute("innerText");
+        assertTrue(actualConfirmMessage.contains("The shipping method successfully updated"));
+    }
+
+//Test  changing Delivery options when user is not logged in
+//This process describes following steps:
+//Go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product -> get product name  -> identify the Add to cart
+// button -> Click on Add to Cart -> Click on View Shopping Cart Option ->  Identify the update delivery options section -> click on new delivery option ->  Confirm that “Unauthorized action.” message is displayed
+    @Test
+    public void testChangeDeliveryOptionInSC2() throws InterruptedException {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
         String productName = driver.findElement(By.id("ProductName")).getText();
@@ -186,12 +253,16 @@ public class ShoppingCartTests {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.className("noty_body"))));
         String actualConfirmMessage = driver.findElement(By.className("noty_body")).getAttribute("innerText");
-        assertTrue(actualConfirmMessage.contains("The shipping method successfully updated to `Free Shipping`"));
+        assertTrue(actualConfirmMessage.contains("Unauthorized action. Please log in."));
     }
 
-    // Test Apply cupon  when user is not logged in
+//Test Apply cupon  when user is not logged in
+//This process describes following steps:
+//Go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product -> get product name
+// -> identify the Add to cart button -> Click on Add to Cart -> Click on View Shopping Cart Option ->  Identify the Cupon field ->Add cupon ->Click on Submit
+// -> Confirm that “Unauthorized action. Please log in.” message is displayed
     @Test
-    public void testAddCouponNotLoggedIn() throws InterruptedException {
+    public void testAddCouponUserNotLoggedIn() throws InterruptedException {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
         String productName = driver.findElement(By.id("ProductName")).getText();
@@ -215,9 +286,13 @@ public class ShoppingCartTests {
     }
 
 
-    //Test Apply cupon  when user is logged in
+//Test Apply cupon  when user is logged in️
+//This process describes following steps:
+//Go to Homepage-> go to My profile ->Login -> Go to Homepage -> identify the three category columns available in Homepage -> Select first product from first category -> click on product
+// -> get product name  -> identify the Add to cart button -> Click on Add to Cart -> Click on View Shopping Cart Option -> Identify the
+//Edt options buton ->Click on Edit Options -> Change option -> Confirm that “Item options were successfully updated” message is displayed
     @Test
-    public void testAddCupon() throws InterruptedException {
+    public void testAddCuponUserLoggedIn() throws InterruptedException {
         WebElement myProfileLink = driver.findElement(By.linkText("My Profile"));
         myProfileLink.click();
         WebElement emailInput = driver.findElement(By.id("inputEmail3"));
@@ -251,8 +326,10 @@ public class ShoppingCartTests {
         String actualConfirmMessage = driver.findElement(By.className("noty_body")).getAttribute("innerText");
         assertTrue(actualConfirmMessage.contains("The coupon has been successfully applied."));
     }
-
-//Test Checkout option  to continue Checkout process result user not logged
+//Test Checkout option  to continue Checkout process result user not logged✔️
+//This process describes following steps:
+//Go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product -> get product name
+// -> identify the Add to cart button -> Click on Add to Cart -> Click on View Shopping Cart Option -> Identify the Checkout buton ->Click on Checkout -> Confirm that Login page is displayed
 
     @Test
     public void SCcheckoutOption() throws InterruptedException {

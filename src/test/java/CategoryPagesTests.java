@@ -21,7 +21,7 @@ public class CategoryPagesTests {
 
     @BeforeClass
     public static void setUpPath() {
-        System.setProperty("webdriver.chrome.driver", "src/resources/chromedriver");
+        Utils.setDriverPath();
     }
 
     @AfterClass
@@ -36,19 +36,12 @@ public class CategoryPagesTests {
         driver.get("http://www.theperfecturn.com/");
     }
 
-    // category pages
-//Test Category Title
-
+//This process describes following steps:
+//-> go to Homepage-> Hover Over Category Menu in Header -> Select Jewelry for Ashes -> Identify Category Description -> Click on Category Description
+// -> confirm the curent URL reads "#categoryDescription ” meaning that the cursor jumped to Product Description section on product page
+// -> Confirm that On Category Page BreadCrumbNavigation is available
     @Test
-    public void checkCategoryTitlePresent() {
-        driver.get("http://www.theperfecturn.com/memorial-jewelry");
-        assertTrue(isElementPresent(By.className("category-title")));
-    }
-
-//Test Click on Category title goes to category description
-
-    @Test
-    public void checkCategoryDescription() {
+    public void checkCategoryDescriptionAndBreadCrumb() {
         WebElement element = driver.findElement(By.linkText("Jewelry"));
         Actions action = new Actions(driver);
         action.moveToElement(element).build().perform();
@@ -56,21 +49,13 @@ public class CategoryPagesTests {
         WebElement categoryDescription = driver.findElement(By.id("MainContainer")).findElement(By.className("category-title")).findElement(By.tagName("a"));
         categoryDescription.click();
         assertTrue(driver.getCurrentUrl().contains(".html#categoryDescription"));
-    }
-
-    // Test Cookie trail - assert available
-    @Test
-    public void checkAssertPresentCookieTrail() {
-        WebElement element = driver.findElement(By.linkText("Jewelry"));
-        Actions action = new Actions(driver);
-        action.moveToElement(element).build().perform();
-        driver.findElement(By.linkText("Jewelry For Ashes")).click();
         WebElement cookieTrail = driver.findElement(By.className("breadcrumb-label"));
         assertTrue(cookieTrail.isDisplayed());
     }
-
-
-    // test jewelry finder results are related to Jewelry
+//Test Finders
+//Test Jewelry finder results are related to Jewelry
+//This process describes following steps: -> go to Homepage-> Hover Over Jewelry Category -> Click on Jewelry -> Identify Finder on Page -> Click on Jewelry Finder
+// -> Confirm the current Url contains “cremation-jewelry-finder”
     @Test
     public void checkJewelryFinder() {
         WebElement element = driver.findElement(By.linkText("Jewelry"));
@@ -82,7 +67,9 @@ public class CategoryPagesTests {
         assertTrue(driver.getCurrentUrl().contains("cremation-jewelry-finder"));
     }
 
-    //test Memorial Finder Results are related to memorial products
+//test Memorial Finder Results are related to memorial products
+//This process describes following steps:-> go to Homepage-> Hover Over Category Menu in Header  -> Click on  Comfort products-> Identify Finder on Page -> Click on Memorial
+// -> Confirm the current Url contains “memorial-product-finder”
     @Test
     public void checkMemorialFinder() {
         WebElement element = driver.findElement(By.linkText("Comfort Products"));
@@ -94,7 +81,9 @@ public class CategoryPagesTests {
         assertTrue(driver.getCurrentUrl().contains("memorial-product-finder"));
     }
 
-    //test Cremation Urn Finder Results are related to memorial products
+//This process describes following steps:-> go to Homepage-> Hover Over Category Menu in Header  -> Click on Cremation Urns -> Identify Urn Finder -> Click on Urn Finder
+// -> Select Person ->Select All Ashes -> Add 150 (pounds)-> Click Show Urns -> Confirm current url contains the relevant results
+
     @Test
     public void checKCremationUrnFinder() {
         WebElement element = driver.findElement(By.linkText("Cremation Urns"));
@@ -113,23 +102,12 @@ public class CategoryPagesTests {
         poundInput.sendKeys("150");
         WebElement showUrns = driver.findElement(By.linkText("Show urns"));
         showUrns.click();
-        assertTrue(driver.getCurrentUrl().contains("150&sort=popularity&action=results"));
+        assertTrue(driver.getCurrentUrl().contains("popularity&action=results"));
     }
 
-
-    // test category description expands on click
-    @Test
-    public void checkCategoryDesctiprionExpands() {
-        driver.get("http://www.theperfecturn.com/memorial-jewelry");
-        WebElement categoryDescription = driver.findElement(By.id("categoryDescription"));
-        WebDriverWait wait = new WebDriverWait(driver, 100);
-        categoryDescription.click();
-
-        assertTrue(!categoryDescription.getAttribute("class").contains("collapsed"));
-    }
-
-
-    // test product listing in category results
+// Check Category Listing in Category Page
+//This process describes following steps: go to Memorial Jewelry Page -> Check Category Type results -> Select First Category Result in List -> Click on Selected Category
+// //-> validate that the page oppened is a category type  page
     @Test
     public void checkCategoryListings() {
         driver.get("http://www.theperfecturn.com/memorial-jewelry");
@@ -142,6 +120,9 @@ public class CategoryPagesTests {
         categoryItems.get(0).click();
         assertTrue(driver.getCurrentUrl().contains("-c-"));
     }
+ //Check Product Listing in Category Page
+//This process describes following steps: go to Memorial Jewelry Page -> Check Product Type results -> Select First Product Result in List -> Click on Selected Product
+//-> validate that the page oppened is a product type  page
 
     @Test
     public void checkProductListings() {
@@ -156,9 +137,11 @@ public class CategoryPagesTests {
         assertTrue(driver.getCurrentUrl().contains("-p-"));
     }
 
-    // Test Display results in Sort by Color and Filter By Rating
+//Test Sort by rating  lowest first + filter by color
+//This process describes following steps: Hover Over Categories Menu in header -> Click on Cremation Urns For People -> Identify Filter “Black”
+// -> Sort By “review” option -> confirm that the products displayed are categorized by reviews descendent order
     @Test
-    public void testSortFilter() {
+    public void testSortAndFilter() {
         WebElement cremationUrnsDroplist = driver.findElement(By.linkText("Cremation Urns"));
         Actions action = new Actions(driver);
         action.moveToElement(cremationUrnsDroplist).build().perform();
@@ -167,7 +150,7 @@ public class CategoryPagesTests {
 
         WebElement color = driver.findElement(By.partialLinkText("Black"));
         color.click();
-        driver.findElement(By.linkText("Reviews")).click();
+       driver.findElement(By.linkText("Reviews")).click();
         List<WebElement> ratingList = driver.findElements(By.className("reviewers"));
         LinkedList<Double> ratings = new LinkedList<Double>();
         for (WebElement ratingElement : ratingList) {
@@ -199,12 +182,17 @@ public class CategoryPagesTests {
             assertTrue(ratings.get(i) >= ratings.get(i + 1));
         }
     }
+ //This process describes following steps: Hover Over Categories Menu in header -> Click on Cremation Urns For People -> Identify Filter “Black” ->Click on Start over button
+// -> confirm that Cremation Urn Finder page displays
 
-    //Category page Test
-//Test  Start over button
     @Test
     public void testStartOverButton() {
-        driver.get("http://www.theperfecturn.com/cremation-urn-finder?type=pet&material=Biodegradable&filters=243&action=results");
+        WebElement cremationUrnsDroplist = driver.findElement(By.linkText("Cremation Urns"));
+        Actions action = new Actions(driver);
+        action.moveToElement(cremationUrnsDroplist).build().perform();
+
+        driver.findElement(By.id("PeopleBanner")).findElement(By.tagName("a")).click();
+
         WebElement color = driver.findElement(By.partialLinkText("Black"));
         color.click();
         WebElement startOver = driver.findElement(By.linkText("Start over"));

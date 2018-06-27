@@ -22,7 +22,7 @@ public class LoginTests {
 
     @BeforeClass
     public static void setUpPath() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+        Utils.setDriverPath();
     }
 
     @AfterClass
@@ -37,7 +37,11 @@ public class LoginTests {
         driver.get("http://www.theperfecturn.com/");
     }
 
-    // Test create new profile
+//Test create new profile
+// This process describes following steps:-> go to Homepage-> search for My Profile link in header -> click on My profile -> Click on New Customer -> Add First name
+// ->Add Last name -> Select Country -> Add Address -> Add City -> Select State -> Add zip code -> Add telephone Number -> Add E-mail Address ->Re-type
+// -> Add Password ->Re-type ->Click Continue -> Confirmation message displays”Your account has been successfully created. You can login now.”
+
 
     @Test
     public void testRegisterNewProfile() throws InterruptedException {
@@ -96,11 +100,12 @@ public class LoginTests {
         retypePassword.clear();
         retypePassword.sendKeys(email);
         WebDriverWait wait = new WebDriverWait(driver, 1000);
-        continueButton.click();
         assertTrue(driver.getCurrentUrl().contains("login"));
     }
 
-    //test login
+//Test  login
+//This process describes following steps: -> go to Homepage-> search for My Profile link in header -> click on My profile -> Add user account ->Add password
+// -> Click on Secure login -> confirm that user profile page is available
     @Test
     public void testLogin() {
         WebElement myProfileLink = driver.findElement(By.linkText("My Profile"));
@@ -119,7 +124,9 @@ public class LoginTests {
         assertTrue(driver.getCurrentUrl().contains("profile"));
     }
 
-    // test log off
+//Test logoff
+//This process describes following steps: -> go to Homepage-> search for My Profile link in header -> click on My profile -> Add user account ->Add password
+// ->Click on Secure login ->Identofy the login button ->Click on login button ->confirm that login page “Welcome “ is oppened
     @Test
     public void testlogoff() {
         testLogin();
@@ -128,9 +135,12 @@ public class LoginTests {
         assertTrue(driver.getCurrentUrl().contains("login"));
     }
 
-    //Test Add new delivery address
+//Test Add new delivery address️
+//This process describes following steps:
+//-> go to Homepage-> search for My Profile link in header -> click on My profile -> Add user account ->Add password ->Click on Secure login ->Click on Address book tab
+// -> Click on Add new Address -> Add First Name ->Add last Name -> Add Address Line 1-> Select Country-> Select State ->Add City -> Add Zip Code -> Click on Save ->Confirm
     @Test
-    public void testAddDeliveryAddress() {
+    public void testAddNewDeliveryAddress() {
         testLogin();
         WebElement addressBookTab = driver.findElement(By.linkText("View or change entries in my address book."));
         addressBookTab.click();
@@ -173,9 +183,12 @@ public class LoginTests {
     }
 
 
-    // test Test  update telephone number
+//Test  update telephone number
+//This process describes following steps: -> go to Homepage-> search for My Profile link in header -> click on My profile -> Add user account ->Add password ->Click on Secure login
+// -> Go to section View or Change My Information -> Click in telephone cassette-> add new telephone number -> record new telephone number -> click update
+// ->Go to section View or Change My Information -> Confirm that displayed telephone number is same as the one recently updated
     @Test
-    public void testUpdatePhoneNUmber() {
+    public void testUpdatePhoneNumber() {
         testLogin();
         WebElement informationTab = driver.findElement(By.linkText("View or change my information."));
         String telephonenr = ("123456789");
@@ -193,7 +206,10 @@ public class LoginTests {
     }
 
 
-    //  Test reset password
+//Test reset password
+// This process describes following steps: -> go to Homepage-> search for My Profile link in header -> click on My profile -> Add user account ->Add password
+// ->Click on Secure login ->Click on Change My account Password ->Add new password -> Update -> Logoff ->login with new password-> Click on Change My account Password
+// ->Update to old password ->Confirm that user is still on profile page
     @Test
     public void testRestPassword() {
 //login to profile

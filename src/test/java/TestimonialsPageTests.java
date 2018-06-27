@@ -19,7 +19,7 @@ public class TestimonialsPageTests {
 
     @BeforeClass
     public static void setUpPath() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+        Utils.setDriverPath();
     }
 
     @AfterClass
@@ -34,15 +34,16 @@ public class TestimonialsPageTests {
         driver.get("http://www.theperfecturn.com/");
     }
 
+ //Test write a review option from product page
+ //This process describes following steps:  //-> go to PM3720 -> Identify the Write a review section -> Click on Write a review ->New page oppens -> Add user name -> add review title
+ // -> add comment -> add ratings -> accept site conditions checkbox -> click on recaptcha -> Click on Submit button -> Confirm Display message is
+ // “Thank you. Your review has been submitted and is now awaiting approval."
 
-    ///Test write a review from product page
-    //Bug, takes you to shopping cart no confirmation message
     @Test
     public void clickWriteReview() throws InterruptedException {
         driver.get("http://www.theperfecturn.com/photo-engraved-pendant-gold-rectangle-p-2720.html");
         WebElement reviewButton = driver.findElement(By.linkText("Write a review"));
         reviewButton.click();
-
         WebElement yourName = driver.findElement(By.id("ReviewerName"));
         WebElement reviewTitle = driver.findElement(By.id("ReviewTitle"));
         WebElement comment = driver.findElement(By.id("ReviewBody"));
@@ -60,18 +61,18 @@ public class TestimonialsPageTests {
         comment.sendKeys("test thank you for order");
         ratings.get(4).click();
         conditionsAccept.click();
-        driver.switchTo().frame(driver.findElement(By.tagName("iframe")));
-        WebElement reCaptcha = driver.findElement(By.id("recaptcha-anchor"));
+        driver.switchTo().frame(driver.findElement(By.tagName("Iframe")));
+        WebElement reCaptcha = driver.findElement(By.id("re-captcha-accessible-status")).findElement(By.className("rc-anchor"));
         reCaptcha.click();
         driver.switchTo().defaultContent();
         submitButton.click();
         WebElement confirmMessage = driver.findElement(By.id("CopyrightArea")).findElement(By.className("container")).findElement(By.className("noty_body"));
-        assertTrue(confirmMessage.getText().contains("Quantity successfully updated."));
+        assertTrue(confirmMessage.getText().contains("Thank you. Your review has been submitted and is now awaiting approval."));
 
     }
-
-
-    //Test read a complete review (read  more option)
+//Test go to testimonial page from product page
+//This process describes following steps:
+//-> go to PM3720 -> Identify the testimonial o right sidebar -> Click on Read More a review section -> Confirm the current Url contains “testimonails”
     @Test
     public void clickReadMore() throws InterruptedException {
         driver.get("http://www.theperfecturn.com/photo-engraved-pendant-gold-rectangle-p-2720.html");

@@ -18,7 +18,7 @@ public class TestPromotionsPage {
 
     @BeforeClass
     public static void setUpPath() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+        Utils.setDriverPath();
     }
 
     @AfterClass
@@ -33,7 +33,10 @@ public class TestPromotionsPage {
         driver.get("http://www.theperfecturn.com/");
     }
 
-    //Main Promo Banner
+//Test Homepage  Main Promo Banner
+//This process describes following steps: Go to homepage -> check if Main Banner Is present ->
+//Get banner hipelink -> Click on Banner ->Confirm that the link oppend is same as banner link
+
     @Test
     public void testMainPromoBanner() {
         assertTrue(isElementPresent(By.id("MainPromo")));
@@ -47,7 +50,10 @@ public class TestPromotionsPage {
         }
     }
 
-    //Main Promo Banner
+//Test Main Promo Second Banner
+//This process describes following steps: Go to homepage -> check if second Main Banner Is present -> Get banner hipelink -> Click on Banner
+// ->Confirm that the link oppend is same as banner link
+
     @Test
     public void testMainPromoSecondBanner() {
         assertTrue(isElementPresent(By.id("MainPromo")));
@@ -66,9 +72,11 @@ public class TestPromotionsPage {
             assertTrue(MainPromoBannerLink.isDisplayed());
         }
     }
+//Test Daily Deal Banner
+//This process describes following steps: Go to homepage ->  check for daily deal banner -> click on banner
+//If no daily promotion avaialble confirm that promotions page oppens
+//If daily product avaialble confirm that product link oppens
 
-    //Content
-    //Daily deal banner
     @Test
     public void testDailyDealBanner() {
         WebElement DailyDealBannerLink = driver.findElement(By.id("DailyDeal"));

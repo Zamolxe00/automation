@@ -22,7 +22,7 @@ public class SearchTests {
 
     @BeforeClass
     public static void setUpPath() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+        Utils.setDriverPath();
     }
 
     @AfterClass
@@ -37,10 +37,15 @@ public class SearchTests {
         driver.get("http://www.theperfecturn.com/");
     }
 
-    //Test Keyword search in homepage header
-//See all categories results
+
+
+//Test click on “See all x category results”
+//This process describes following steps:
+// ->  go to the search box on homepage-> introduce a keyword -> click on See All Category results from suggestion list
+// assert that the link oppened contains  searched term (urn in this case )  related results.
+
     @Test
-    public void testSearchBoxCategories() throws InterruptedException {
+    public void testSearchBoxSeeAllCategoryResults() throws InterruptedException {
         Actions builder = new Actions(driver);
         WebElement searchBox = driver.findElement(By.id("SearchInputs")).findElement(By.tagName("input"));
         searchBox.click();
@@ -52,22 +57,30 @@ public class SearchTests {
         assertTrue(driver.getCurrentUrl().contains("urn"));
     }
 
-    //See all products results
+// Test click on “See all x product  results “
+//This process describes following steps:
+// ->  go to the search box on homepage-> introduce a keyword -> click on  See All x product results from suggestion list
+// -> assert that the link oppened contains  searched term (urn in this case )  related results.
+
     @Test
-    public void testSearchBoxProducts() throws InterruptedException {
+    public void testSearchBoxSeeAllProductsResult() throws InterruptedException {
         Actions builder = new Actions(driver);
         WebElement searchBox = driver.findElement(By.id("SearchInputs")).findElement(By.tagName("input"));
         searchBox.click();
         searchBox.sendKeys("urn");
-        WebElement categoryResults = driver.findElement(By.partialLinkText("product results"));
+        WebElement productResults = driver.findElement(By.partialLinkText("product results"));
         WebDriverWait wait = new WebDriverWait(driver, 1000);
-        wait.until(ExpectedConditions.elementToBeClickable(categoryResults));
-        builder.moveToElement(categoryResults).build().perform();
+        wait.until(ExpectedConditions.elementToBeClickable(productResults));
+        builder.moveToElement(productResults).build().perform();
         assertTrue(driver.getCurrentUrl().contains("urn"));
     }
 
-    //Click on categories result  from suggestion list - not working
-    @Test
+//Test open first category related  result✔️
+//This process describes following steps:
+//-> go to the search box on homepage-> introduce a keyword -> click on first result from category suggestion list
+//- > assert that the link oppened contains  searched term (urn in this case )  related results.
+
+        @Test
     public void testSearchBoxCategoriesList() throws InterruptedException {
         Actions builder = new Actions(driver);
         WebElement searchBox = driver.findElement(By.id("SearchInputs")).findElement(By.tagName("input"));
@@ -81,17 +94,23 @@ public class SearchTests {
         assertTrue(driver.getCurrentUrl().contains("urn"));
     }
 
-    //Click on specific products results from suggestion list - not working
-//Test Advanced search in homepage footer
-//Page available
+//Test go to advanced search page✔️
+//This process describes following steps:
+//-> go to homepage-> search for advanced search link in footer  -> click on Advanced Search
+//-> assert that the link oppened is the advanced search page
+
     @Test
-    public void testAdvancedSearch() throws InterruptedException {
+    public void testAdvancedSearchPage() throws InterruptedException {
         WebElement advancedSearchButton = driver.findElement(By.partialLinkText("Advanced Search"));
         advancedSearchButton.click();
         assertTrue(driver.getCurrentUrl().contains("search-advanced"));
     }
 
-    //Display results
+//Test Display  results in advanced search page✔️
+//This process describes following steps:
+//-> go to homepage-> search for advanced search link in footer  -> click on Advanced Search -> go to search cassette in Advanced Search Page -> introduce a search term (sculpture)
+//-> validate that results are related to "keywords=sculpture"
+
     @Test
     public void testAdvancedSearchResult() throws InterruptedException {
         WebElement advancedSearchButton = driver.findElement(By.partialLinkText("Advanced Search"));
@@ -105,7 +124,11 @@ public class SearchTests {
         assertTrue(driver.getCurrentUrl().contains("keywords=sculpture"));
     }
 
-    //test category type results
+//Test category type results in Advanced search page✔️
+//This process describes following steps:
+//-> search for advanced search link in footer  -> click on Advanced Search -> go to search cassette in Advanced Search Page-> introduce a search term (sculpture) -> open first result in category results
+// -> validate that the page oppened is a category type  page
+
     @Test
     public void testAdvancedSearchCategoryResult() throws InterruptedException {
         WebElement advancedSearchButton = driver.findElement(By.partialLinkText("Advanced Search"));
@@ -125,7 +148,7 @@ public class SearchTests {
         TestCase.assertTrue(driver.getCurrentUrl().contains("-c-"));
     }
 
-    //test product  type results --not working
+
     @After
     public void tearDown() {
         driver.quit();

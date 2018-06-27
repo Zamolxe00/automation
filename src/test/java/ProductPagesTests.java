@@ -15,7 +15,7 @@ public class ProductPagesTests {
 
     @BeforeClass
     public static void setUpPath() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
+        Utils.setDriverPath();
     }
 
     @AfterClass
@@ -30,33 +30,27 @@ public class ProductPagesTests {
         driver.get("http://www.theperfecturn.com/");
     }
 
-    //Test Cookie trail (  availability )
+//Test Product Details
+//This process describes following steps:
+//-> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product
+//-> assert that the product displays Breadcrumb, Product Name, Product Price
+
     @Test
-    public void assertCookieTrail() {
+    public void assertProductDetails() {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
         assertTrue(isElementPresent(By.className("breadcrumb")));
-    }
-
-    //assert product name
-    @Test
-    public void assertProductName() {
-        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
-        categoryProducts.get(0).click();
         assertTrue(isElementPresent(By.id("ProductName")));
+        assertTrue(isElementPresent(By.className("product-price")));
     }
 
-    //assert  product price
-    @Test
-    public void assertProductPrice() {
-        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
-        categoryProducts.get(0).click();
-        assertTrue(isElementPresent(By.xpath("//*[@id=\"AddToCartForm\"]/div[1]/div[2]/div[1]")));
-    }
+//Test Product Image
+//This process describes following steps:
+// -> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product -> click on Prduct image -> Image  Expands ->
+//Scroll trough Product Image -> assert that scroll is available
 
-    //  test  Expand and Scroll trough Product Image
     @Test
-    public void assertProductFancyBox() throws InterruptedException {
+    public void testProductImageOptions() throws InterruptedException {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
         WebElement imageLink = driver.findElement(By.id("pageProductCarousel"));
@@ -70,7 +64,10 @@ public class ProductPagesTests {
         assertTrue(scrollLink.isDisplayed());
     }
 
-    // Add product to cart asert Just Added page contains same product
+//Test add to cart product
+//This process describes following steps:
+//-> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product -> identify the add to cart product
+// -> click on add to cart -> asert Just Added page contains same product that was added in previous page
     @Test
     public void testAddToCart() {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
@@ -82,7 +79,10 @@ public class ProductPagesTests {
         assertTrue(productName.contains(justAddedProductName));
     }
 
-//Test Product Review Redirection
+//Test Click on product  Review
+//This process describes following steps:
+//-> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product -> identify ratings link
+// -> click on “x customer reviews”-> asert the curent URL reads "#Reviews”meaning that the cursor jumped to Rating section on product page
 
     @Test
     public void testReviews() {
@@ -93,7 +93,12 @@ public class ProductPagesTests {
         assertTrue(driver.getCurrentUrl().contains("#Reviews"));
     }
 
-    // Test Low Price Guaranteed pop-up oppens and is usable
+//Test Low Price Guaranteed pop-up submit request✔️
+//This process describes following steps:
+// -> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product -> identify Low Price Link
+// -> Click on Low Price Link -> confirm that pop-up oppens
+//-> add concurrent product link -> add concurrent product shipping cost -> add merchants price -> add user e-mail -> click on submit button -> confirm registration message display :
+// "Thank you. We have received your submission and will be responding promptly. During normal business hours of 8am - 5pm Central Time on Monday - Friday your Low Price Guarantee will reviewed within 1 business day."
     @Test
     public void testLowPriceGuaranteedPopUp() throws InterruptedException {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
@@ -124,7 +129,10 @@ public class ProductPagesTests {
     }
 
 
-    // test Product Index - Click on Volume available
+//Test Product Index -Click on Inside Volume Option
+//This process describes following steps:
+//-> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product -> identify Volume option in Product Index
+// -> Click on Volume -> confirm the curent URL reads "#Volume” meaning that the cursor jumped to volume section on product page
     @Test
     public void testProductIndex() {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
@@ -133,7 +141,10 @@ public class ProductPagesTests {
         insideVolume.click();
         assertTrue(driver.getCurrentUrl().contains("Volume"));
     }
-// Test Pinterest  Share
+
+ //Test Pinterest Share
+//This process describes following steps: -> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category
+// -> click on product -> identify Pinterest button -> click on Pinterest button -> New window oppens -> Confirm New window loads Pinterest page
 
     @Test
     public void testPinterestShare() {
@@ -147,17 +158,11 @@ public class ProductPagesTests {
         assertTrue(driver.getCurrentUrl().contains("pinterest"));
     }
 
-    //Test Asert Product information includes Product Details in Product Information Body
-    @Test
-    public void testProductInformation() {
-        List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
-        categoryProducts.get(0).click();
-        String information = driver.findElement(By.id("Information")).getText();
-        String details = driver.findElement(By.id("Information")).findElement(By.className("details")).getText();
-        assertTrue(information.contains(details));
-    }
-
-    // Test video overlay
+//Test Product Options
+//Product with video overlay
+//This process describes following steps:
+//-> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product ->  identify video link
+// -> click on video link -> confirm new tab oppens -> confirm new tab is Youtube ->  Test video overlay
     @Test
     public void testVideoOverlay() {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
@@ -168,12 +173,13 @@ public class ProductPagesTests {
         driver.switchTo().window(browserTabs.get(1));
         assertTrue(driver.getCurrentUrl().contains("youtube"));
         driver.close();
-
     }
 
-    // Test discount options (add to cart in bundle )
+//Product with Discount Options (add to cart in bundle)
+//This process describes following steps:  go to PM8120 -> identify Discount options(5) -> Click on Add to cart -> Identify cart Icon in Header -> Click on Cart Icon
+// -> Confirm quantity value is same (5) in SC
     @Test
-    public void testDiscountOptions() {
+    public void testDiscountOptionsShopInBundle() {
         driver.get("http://www.theperfecturn.com/angel-wing-sterling-silver-cremation-jewelry-engravable-p-7120.html");
         WebElement DiscountOptionsLink = driver.findElement(By.id("qd-buy-5")).findElement(By.tagName("button"));
         DiscountOptionsLink.click();
@@ -182,9 +188,10 @@ public class ProductPagesTests {
         String value = driver.findElement(By.className("item")).findElement(By.className("quantity")).findElement(By.tagName("input")).getAttribute("value");
         assertEquals("5", value);
     }
-///does not work correct for assert !!!
 
-    //Select  personalization options on product
+//Select  personalization options on product ️
+//This process describes following steps: -> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product
+// -> Identify the Personalize Button -> Click on Personalize button -> confirm the curent URL reads "#Options” meaning that the cursor jumped to Product Options section on product page
     @Test
     public void testPersonalizationButonAvailable() {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
@@ -196,27 +203,37 @@ public class ProductPagesTests {
 
     //Order Product with options (select  personalization options on product )
     @Test
-    public void testOptionalPersonalization() {
+    public void testUseOptionalPersonalization() {
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
         String productName = driver.findElement(By.id("ProductName")).getText();
-        WebElement choosePlaqueStyle = driver.findElement(By.id("select-1550"));
-        Select dropdownPlaqueStyle = new Select(driver.findElement(By.id("select-1550")));
+        List<WebElement> optionsDropdowns = driver.findElement(By.id("Options")).findElements(By.tagName("select"));
+        WebElement choosePlaqueStyle = optionsDropdowns.get(0);
+        Select dropdownPlaqueStyle = new Select(choosePlaqueStyle);
         dropdownPlaqueStyle.selectByIndex(1);
+        optionsDropdowns = driver.findElement(By.id("Options")).findElements(By.tagName("select"));
+        Select dropdownchooseArtwork = new Select(optionsDropdowns.get(1));
+        dropdownchooseArtwork.selectByIndex(1);
         WebElement addToCartButtonDown = driver.findElement(By.className("AddToCartAction"));
         addToCartButtonDown.click();
         String justAddedProductName = driver.findElement(By.className("details")).findElement(By.className("name")).getText();
         assertTrue(productName.contains(justAddedProductName));
     }
 
-    //Order Product with mandatory options (select  mandatory option on product )
+  //Order Product with mandatory options
+  //This process describes following steps:  go to PM8120 -> Identify the Personalize Button -> Click on Personalize button -> Select One option from drop list -> Click Add to cart
+  // -> confirm Just Added page contains same product that was added in previous page
     @Test
     public void testMandatoryPersonalization() {
         driver.get("http://www.theperfecturn.com/photo-engraved-pendant-gold-rectangle-p-2720.html");
         String productName = driver.findElement(By.id("ProductName")).getText();
-        WebElement chooseArtWork = driver.findElement(By.id("select-1186"));
-        Select dropdownchooseArtWork = new Select(driver.findElement(By.id("select-1186")));
-        dropdownchooseArtWork.selectByIndex(1);
+        List<WebElement> optionsDropdowns = driver.findElement(By.id("Options")).findElements(By.tagName("select"));
+        WebElement chooseArtWork = optionsDropdowns.get(2);
+        Select dropdownPlaqueStyle = new Select(chooseArtWork);
+        dropdownPlaqueStyle.selectByIndex(1);
+        optionsDropdowns = driver.findElement(By.id("Options")).findElements(By.tagName("select"));
+        Select dropdownchooseArtwork = new Select(optionsDropdowns.get(1));
+        dropdownchooseArtwork.selectByIndex(1);
         WebElement addToCartButtonDown = driver.findElement(By.className("AddToCartAction"));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].removeAttribute('disabled','disabled')", addToCartButtonDown);
@@ -225,18 +242,7 @@ public class ProductPagesTests {
         assertTrue(productName.contains(justAddedProductName));
     }
 
-    //Test Photo Upload on product
-    @Test
-    public void testPhotoUpload() {
-        driver.get("http://www.theperfecturn.com/photo-engraved-pendant-gold-rectangle-p-2720.html");
-        String winHandleBefore = driver.getWindowHandle();
-        WebElement uploadPhotolink = driver.findElement(By.id("upload-photo-tab"));
-        uploadPhotolink.click();
-        WebElement chooseFile = driver.findElement(By.id("PhotoUploadButton"));
-        chooseFile.click();
 
-    }
-//to be improved
 
 
     @After
