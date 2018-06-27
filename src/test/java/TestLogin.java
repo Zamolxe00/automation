@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.fail;
 
-public class LoginTests {
+public class TestLogin {
     //Login pages
 //Login to My Profile with provided e-mail and password
 

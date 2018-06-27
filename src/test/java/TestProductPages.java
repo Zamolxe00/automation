@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
-public class ProductPagesTests {
+public class TestProductPages {
     private WebDriver driver;
     private StringBuffer verificationErrors = new StringBuffer();
 

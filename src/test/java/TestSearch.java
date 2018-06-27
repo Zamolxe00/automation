@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class SearchTests {
+public class TestSearch {
 
     private WebDriver driver;
     private StringBuffer verificationErrors = new StringBuffer();

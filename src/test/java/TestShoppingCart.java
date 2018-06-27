@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class ShoppingCartTests {
+public class TestShoppingCart {
     private WebDriver driver;
     private StringBuffer verificationErrors = new StringBuffer();
 
