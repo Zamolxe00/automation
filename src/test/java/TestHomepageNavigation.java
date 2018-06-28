@@ -1,3 +1,4 @@
+import org.apache.log4j.Logger;
 import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -16,6 +17,7 @@ import static org.junit.Assert.fail;
 public class TestHomepageNavigation {
     private WebDriver driver;
     private StringBuffer verificationErrors = new StringBuffer();
+    private Logger log = Logger.getLogger(TestLogin.class);
 
     @BeforeClass
     public static void setUpPath() {
@@ -43,11 +45,16 @@ public class TestHomepageNavigation {
 
     @Test
     public void testClickHelpAndLogo() {
+        log.info("Go to Homepage");
+        log.info("Click on Help (header link)");
         WebElement helpLink = driver.findElement(By.linkText("Help"));
         helpLink.click();
+        log.info("Confirm Help Page is displayed in browser" );
         assertTrue(driver.getCurrentUrl().contains("help"));
+        log.info("Click on Logo");
         WebElement logo = driver.findElement(By.className("logo-area"));
         logo.click();
+        log.info("Confirm Home Page is displayed in browser" );
         assertTrue(driver.getCurrentUrl().contains("theperfecturn"));
     }
 
@@ -58,11 +65,16 @@ public class TestHomepageNavigation {
 
     @Test
     public void testClickPromotionsAndHome() {
+        log.info("Go to Homepage");
+        log.info("Click on Promotions (header link)");
         WebElement PromotionsLink = driver.findElement(By.linkText("Promotions"));
         PromotionsLink.click();
+        log.info("Confirm Promotions Page is displayed in browser" );
         assertTrue(driver.getCurrentUrl().contains("promotions"));
+        log.info("Click on Home (header link)");
         WebElement HomeLink = driver.findElement(By.linkText("Home"));
         HomeLink.click();
+        log.info("Confirm Home Page is displayed in browser" );
         assertTrue(driver.getCurrentUrl().contains("theperfecturn"));
     }
 
@@ -73,8 +85,11 @@ public class TestHomepageNavigation {
 
     @Test
     public void testClickContactUs() {
+        log.info("Go to Homepage");
         WebElement ContactUsLink = driver.findElement(By.linkText("Contact Us"));
+        log.info("Click on Contact Us (header link)");
         ContactUsLink.click();
+        log.info("Confirm Contact Us page is displayed in browser" );
         assertTrue(driver.getCurrentUrl().contains("contact-us"));
     }
 
@@ -85,8 +100,11 @@ public class TestHomepageNavigation {
 
     @Test
     public void testClickMyProfile() {
+        log.info("Go to Homepage");
+        log.info("Click on My Profile");
         WebElement myProfileLink = driver.findElement(By.linkText("My Profile"));
         myProfileLink.click();
+        log.info("Confirm Login page is displayed in browser" );
         assertTrue(driver.getTitle().equalsIgnoreCase("login"));
         assertTrue(driver.getCurrentUrl().contains("login"));
     }
@@ -98,8 +116,11 @@ public class TestHomepageNavigation {
 
     @Test
     public void testClickCartIcon() {
+        log.info("Go to Homepage");
+        log.info("Click on Cart Image");
         WebElement CartImageLink = driver.findElement(By.id("ShoppingCartIcon"));
         CartImageLink.click();
+        log.info("Confirm SC page is displayed in browser" );
         assertTrue(driver.getCurrentUrl().contains("cart"));
     }
 
@@ -110,8 +131,11 @@ public class TestHomepageNavigation {
 
     @Test
     public void testClickCartLink() {
+        log.info("Go to Homepage");
+        log.info("Click on x items in cart ");
         WebElement CartItemLink = driver.findElement(By.id("ShoppingCart"));
         CartItemLink.click();
+        log.info("Confirm SC page is displayed in browser" );
         assertTrue(driver.getCurrentUrl().contains("cart"));
     }
 
@@ -122,11 +146,14 @@ public class TestHomepageNavigation {
 
     @Test
     public void testHeaderLiveChatClick() throws InterruptedException {
+        log.info("Go to Homepage");
+        log.info("Click on Live Chat link");
         WebElement LiveChatLink = driver.findElement(By.className("live-chat-support-banner"));
         String winHandleBefore = driver.getWindowHandle();
         LiveChatLink.click();
         List<String> windows = new ArrayList<String>(driver.getWindowHandles());
         driver.switchTo().window(windows.get(windows.size() - 1));
+        log.info("Confirm chat box is displayed in browser" );
         assertTrue(driver.getCurrentUrl().contains("chat"));
         driver.close();
         driver.switchTo().window(winHandleBefore);
@@ -139,11 +166,14 @@ public class TestHomepageNavigation {
 
     @Test
     public void testBizrateRedirection() throws InterruptedException {
-        WebElement likeButton = driver.findElement(By.id("header-bizrate-second-link"));
+        log.info("Go to Homepage");
+        log.info("Click on Bizrate Icon (header)");
+        WebElement bizButton = driver.findElement(By.id("header-bizrate-second-link"));
         String winHandleBefore = driver.getWindowHandle();
-        likeButton.click();
+        bizButton.click();
         List<String> windows = new ArrayList<String>(driver.getWindowHandles());
         driver.switchTo().window(windows.get(windows.size() - 1));
+        log.info("Confirm Bizrate site is oppened in new tab" );
         assertTrue(driver.getCurrentUrl().contains("bizratesurveys"));
         driver.close();
         driver.switchTo().window(winHandleBefore);
@@ -158,11 +188,16 @@ public class TestHomepageNavigation {
 
     @Test
     public void testFooterLinks() {
+        log.info("Go to Homepage");
+        log.info("Click on Address Book link (footer )");
         WebElement AddressBookLink = driver.findElement(By.linkText("Address Book"));
         AddressBookLink.click();
+        log.info("Confirm Welcome page is displayed in Browser" );
         assertTrue(driver.findElement(By.className("main-banner")).getText().contains("Welcome"));
+        log.info("Click on SiteMap link (footer )");
         WebElement SiteMapLink = driver.findElement(By.partialLinkText("Map"));
         SiteMapLink.click();
+        log.info("Confirm SiteMap page is displayed in Browser" );
         assertTrue(driver.getCurrentUrl().contains("sitemap"));
     }
 
@@ -173,8 +208,11 @@ public class TestHomepageNavigation {
 
     @Test
     public void testFacebookRedirection() {
+        log.info("Go to Homepage");
+        log.info("Click on FaceBook link (footer )");
         WebElement FacebookRedirectionLink = driver.findElement(By.partialLinkText("Facebook"));
         FacebookRedirectionLink.click();
+        log.info("Confirm  Perfect Memorials Facebook page is displayed in Browser" );
         assertTrue(driver.getCurrentUrl().contains("facebook.com/PerfectMemorials"));
     }
 
@@ -185,12 +223,15 @@ public class TestHomepageNavigation {
 
     @Test
     public void testTrustWaveRedirection() throws InterruptedException {
+        log.info("Go to Homepage");
+        log.info("Click on TrustWave icon (footer )");
         WebElement TrustWaveRedirection = driver.findElement(By.id("trustwaveSealImage"));
         WebDriverWait wait = new WebDriverWait(driver, 100);
         String winHandleBefore = driver.getWindowHandle();
         TrustWaveRedirection.click();
         List<String> windows = new ArrayList<String>(driver.getWindowHandles());
         driver.switchTo().window(windows.get(windows.size() - 1));
+        log.info("Confirm TrustWave menu is oppened in new tab" );
         assertTrue(driver.getCurrentUrl().contains("sealserver.trustwave.com"));
         driver.close();
         driver.switchTo().window(winHandleBefore);
@@ -202,6 +243,8 @@ public class TestHomepageNavigation {
 
     @Test
     public void testPaymentMethodsBadgeAvailable() {
+        log.info("Go to Homepage");
+        log.info("Confirm Payment Method image is available on Homepage");
         WebElement PaymentMethodsBadgeAvailableLink = driver.findElement(By.className("payment-methods"));
         assertTrue(PaymentMethodsBadgeAvailableLink.isDisplayed());
     }
@@ -213,6 +256,8 @@ public class TestHomepageNavigation {
 
     @Test
     public void Assert4Tell() {
+        log.info("Go to Homepage");
+        log.info("Confirm 4Tell carousel is available on Homepage");
         assertTrue(isElementPresent(By.id("tout1_hm_4Tell")));
     }
 
@@ -224,8 +269,11 @@ public class TestHomepageNavigation {
 
     @Test
     public void testSeeMore() {
-        List<WebElement> seeMoreLinks = driver.findElements(By.linkText("See more"));
+        log.info("Go to Homepage");
+        log.info("Identify the See More links on Homepage and Click on first option  from list  ");
+         List<WebElement> seeMoreLinks = driver.findElements(By.linkText("See more"));
         seeMoreLinks.get(0).click();
+        log.info("Confirm Today's Specials Page  is displayed in browser" );
             assertTrue(driver.getTitle().contains("Today's Specials"));
     }
 
@@ -236,8 +284,11 @@ public class TestHomepageNavigation {
 
     @Test
     public void testViewMore() {
+        log.info("Go to Homepage");
+        log.info("Identify the View More links on Homepage and Click on third option  from list ");
         List<WebElement> viewMoreLinks = driver.findElements(By.linkText("View more"));
         viewMoreLinks.get(2).click();
+        log.info("Today's Jewelry Specials is displayed in browser" );
         assertTrue(driver.getTitle().contains("Today's Jewelry Specials"));
     }
 
@@ -248,8 +299,11 @@ public class TestHomepageNavigation {
 
     @Test
     public void testBioUrns() {
+        log.info("Go to Homepage");
+        log.info("Identify the Bio Urn links on Homepage and Click on first option from list ");
     List<WebElement> bioUrnsBanners = driver.findElements(By.className("banner"));
        bioUrnsBanners.get(0).click();
+        log.info("Biodegradable EcoUrn Urns is displayed in browser" );
     assertTrue(driver.getTitle().contains("Biodegradable EcoUrn Urns"));}
 
 

@@ -1,3 +1,4 @@
+import org.apache.log4j.Logger;
 import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,6 +13,7 @@ import static org.junit.Assert.*;
 public class TestProductPages {
     private WebDriver driver;
     private StringBuffer verificationErrors = new StringBuffer();
+    private Logger log = Logger.getLogger(TestProductPages.class);
 
     @BeforeClass
     public static void setUpPath() {
@@ -37,8 +39,10 @@ public class TestProductPages {
 
     @Test
     public void assertProductDetails() {
+        log.info("Click on First Product from the list reffering to Cremation urns on Homepage");
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
+        log.info("Confirm following elements are displayed on page :Breadcrumb, Product Name, Product Price");
         assertTrue(isElementPresent(By.className("breadcrumb")));
         assertTrue(isElementPresent(By.id("ProductName")));
         assertTrue(isElementPresent(By.className("product-price")));
@@ -51,8 +55,10 @@ public class TestProductPages {
 
     @Test
     public void testProductImageOptions() throws InterruptedException {
+        log.info("Click on First Product from the list reffering to Cremation urns on Homepage");
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
+        log.info("Click on Product Image, Scroll in Carousel");
         WebElement imageLink = driver.findElement(By.id("pageProductCarousel"));
         imageLink.click();
         Thread.sleep(100);
@@ -61,6 +67,7 @@ public class TestProductPages {
         scrollLink.click();
         Thread.sleep(100);
         scrollLink.click();
+        log.info("Confirm Image Carousel is Displayed and Usable");
         assertTrue(scrollLink.isDisplayed());
     }
 
@@ -70,11 +77,15 @@ public class TestProductPages {
 // -> click on add to cart -> asert Just Added page contains same product that was added in previous page
     @Test
     public void testAddToCart() {
+        log.info("Click on First Product from the list reffering to Cremation urns on Homepage");
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
+        log.info("Register product name ");
         String productName = driver.findElement(By.id("ProductName")).getText();
+        log.info("Click on Add to Cart ");
         WebElement addToCartButton = driver.findElement(By.className("AddToCartAction"));
         addToCartButton.click();
+        log.info("Confirm That In Just Added Page Product Name is same as on Product Page ");
         String justAddedProductName = driver.findElement(By.className("details")).findElement(By.className("name")).getText();
         assertTrue(productName.contains(justAddedProductName));
     }
@@ -86,10 +97,13 @@ public class TestProductPages {
 
     @Test
     public void testReviews() {
+        log.info("Click on First Product from the list reffering to Cremation urns on Homepage");
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
+        log.info("Click on x Customer Reviews");
         WebElement reviewStars = driver.findElement(By.className("rating"));
         reviewStars.click();
+        log.info("Confirm  #Reviews is displayed on Url meaning that the cursor jumped to Rating section on product page");
         assertTrue(driver.getCurrentUrl().contains("#Reviews"));
     }
 
@@ -101,9 +115,11 @@ public class TestProductPages {
 // "Thank you. We have received your submission and will be responding promptly. During normal business hours of 8am - 5pm Central Time on Monday - Friday your Low Price Guarantee will reviewed within 1 business day."
     @Test
     public void testLowPriceGuaranteedPopUp() throws InterruptedException {
+        log.info("Click on First Product from the list reffering to Cremation urns on Homepage");
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
         WebElement LowPriceGuaranteedPopUpLink = driver.findElement(By.className("low-price-guarantee"));
+        log.info("Click on Low Price quarantee");
         LowPriceGuaranteedPopUpLink.click();
         Thread.sleep(5000);
         assertTrue(driver.findElement(By.id("lowPriceGuaranteeModal")).getAttribute("class").contains("show"));
@@ -112,19 +128,25 @@ public class TestProductPages {
         WebElement merchantsPrice = driver.findElement(By.id("merchantsPrice"));
         WebElement yourEmail = driver.findElement(By.id("email"));
         WebElement submitButton = driver.findElement(By.id("lowPriceGuaranteeModal")).findElement(By.className("btn-standard"));
+        log.info(" Add concurrent product link");
         link.clear();
         link.sendKeys("http://www.theperfecturn.com/amethyst-grecian-marble-keepsake-the-perfect-urn-vault-p-2653.html");
+        log.info("Shipping Cost 10");
         shippingCost.click();
         shippingCost.clear();
         shippingCost.sendKeys("10");
+        log.info("Mercant Price 10");
         merchantsPrice.click();
         merchantsPrice.clear();
         merchantsPrice.sendKeys("10");
+        log.info(" Your e-mail ielena.gheorghe@email.com");
         yourEmail.click();
         yourEmail.clear();
         yourEmail.sendKeys("ielena.gheorghe@email.com");
+        log.info(" Click on Submit Button ");
         submitButton.click();
         String actualConfirmMessage = driver.findElement(By.className("alert-container")).getAttribute("innerText");
+        log.info("Confirmation message is displayed in browser:Thank you. We have received your submission and will be responding promptly. During normal business hours of 8am - 5pm Central Time on Monday - Friday your Low Price Guarantee will reviewed within 1 business day." );
         assertTrue(actualConfirmMessage.contains("Thank you. We have received your submission and will be responding promptly. During normal business hours of 8am - 5pm Central Time on Monday - Friday your Low Price Guarantee will reviewed within 1 business day."));
     }
 
@@ -135,10 +157,13 @@ public class TestProductPages {
 // -> Click on Volume -> confirm the curent URL reads "#Volume” meaning that the cursor jumped to volume section on product page
     @Test
     public void testProductIndex() {
+        log.info("Click on First Product from the list reffering to Cremation urns on Homepage");
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
+        log.info("Click on Inside Volume from Product Index");
         WebElement insideVolume = driver.findElement(By.id("ProductIndexNav")).findElement(By.tagName("a"));
         insideVolume.click();
+        log.info("Confirm the curent URL reads #Volume meaning that the cursor jumped to volume section on product page" );
         assertTrue(driver.getCurrentUrl().contains("Volume"));
     }
 
@@ -148,29 +173,35 @@ public class TestProductPages {
 
     @Test
     public void testPinterestShare() {
+        log.info("Click on First Product from the list reffering to Cremation urns on Homepage");
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
         String handle = driver.getWindowHandle();
+        log.info("Identify The Pinterest save Button and click");
         List<WebElement> socialButtons = driver.findElement(By.id("Sharing")).findElements(By.tagName("a"));
         socialButtons.get(1).click();
         for (String window : driver.getWindowHandles())
             driver.switchTo().window(window);
+        log.info("Confirm Url oppened is Pinterest Page ");
         assertTrue(driver.getCurrentUrl().contains("pinterest"));
     }
 
-//Test Product Options
+
 //Product with video overlay
 //This process describes following steps:
 //-> go to Homepage-> identify the three category columns available in Homepage -> Select first product from first category -> click on product ->  identify video link
 // -> click on video link -> confirm new tab oppens -> confirm new tab is Youtube ->  Test video overlay
     @Test
     public void testVideoOverlay() {
+        log.info("Click on First Product from the list reffering to Cremation urns on Homepage");
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
+        log.info("Click Product Image Overlay ");
         WebElement productVideoLink = driver.findElement(By.className("play-video"));
         productVideoLink.click();
         List<String> browserTabs = new ArrayList<String>(driver.getWindowHandles());
         driver.switchTo().window(browserTabs.get(1));
+        log.info("Confirm Youtube product description page is oppened in New Tab");
         assertTrue(driver.getCurrentUrl().contains("youtube"));
         driver.close();
     }
@@ -180,11 +211,15 @@ public class TestProductPages {
 // -> Confirm quantity value is same (5) in SC
     @Test
     public void testDiscountOptionsShopInBundle() {
+        log.info("Open PM8120 product page");
         driver.get("http://www.theperfecturn.com/angel-wing-sterling-silver-cremation-jewelry-engravable-p-7120.html");
+        log.info("Identfy the 5+ Quantity Add to Cart Button and Click ");
         WebElement DiscountOptionsLink = driver.findElement(By.id("qd-buy-5")).findElement(By.tagName("button"));
         DiscountOptionsLink.click();
+        log.info("Click on Cart Image from Header ");
         WebElement CartImageLink = driver.findElement(By.id("ShoppingCartIcon"));
         CartImageLink.click();
+        log.info("Confirm quantity value is same (5) in SC ");
         String value = driver.findElement(By.className("item")).findElement(By.className("quantity")).findElement(By.tagName("input")).getAttribute("value");
         assertEquals("5", value);
     }
@@ -194,29 +229,39 @@ public class TestProductPages {
 // -> Identify the Personalize Button -> Click on Personalize button -> confirm the curent URL reads "#Options” meaning that the cursor jumped to Product Options section on product page
     @Test
     public void testPersonalizationButonAvailable() {
+        log.info("Click on First Product from the list reffering to Cremation urns on Homepage");
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
+        log.info("Click on Personalize Button");
         WebElement personalizeButton = driver.findElement(By.linkText("Personalize"));
         personalizeButton.click();
+        log.info("Confirm the curent URL reads #Options meaning that the cursor jumped to Product Options section on product page" );
         assertTrue(driver.getCurrentUrl().contains("Options"));
     }
 
-    //Order Product with options (select  personalization options on product )
+ //Order Product with Personalization button
+//This process describes following steps:  go to PM8120 -> Identify the Personalize Button -> Click on Personalize button -> Select One option from drop list -> Click Add to cart
+// -> confirm Just Added page contains same product that was added in previous page
     @Test
     public void testUseOptionalPersonalization() {
+        log.info("Click on First Product from the list reffering to Cremation urns on Homepage");
         List<WebElement> categoryProducts = driver.findElements(By.className("category-items"));
         categoryProducts.get(0).click();
         String productName = driver.findElement(By.id("ProductName")).getText();
+        log.info("Select first Option from Choose Plaque Style :Yes, Plaque ...");
         List<WebElement> optionsDropdowns = driver.findElement(By.id("Options")).findElements(By.tagName("select"));
         WebElement choosePlaqueStyle = optionsDropdowns.get(0);
         Select dropdownPlaqueStyle = new Select(choosePlaqueStyle);
         dropdownPlaqueStyle.selectByIndex(1);
+        log.info("Select first  Option from Choose Art Work  :Rose...");
         optionsDropdowns = driver.findElement(By.id("Options")).findElements(By.tagName("select"));
         Select dropdownchooseArtwork = new Select(optionsDropdowns.get(1));
         dropdownchooseArtwork.selectByIndex(1);
+        log.info("Click on Add To Cart");
         WebElement addToCartButtonDown = driver.findElement(By.className("AddToCartAction"));
         addToCartButtonDown.click();
         String justAddedProductName = driver.findElement(By.className("details")).findElement(By.className("name")).getText();
+        log.info("Confirm that Same Product is displayed");
         assertTrue(productName.contains(justAddedProductName));
     }
 
@@ -225,7 +270,9 @@ public class TestProductPages {
   // -> confirm Just Added page contains same product that was added in previous page
     @Test
     public void testMandatoryPersonalization() {
+        log.info("Go to PM3720");
         driver.get("http://www.theperfecturn.com/photo-engraved-pendant-gold-rectangle-p-2720.html");
+        log.info("Select first  Option from Choose Art Work  : Traditional Cross -mandatory option ");
         String productName = driver.findElement(By.id("ProductName")).getText();
         List<WebElement> optionsDropdowns = driver.findElement(By.id("Options")).findElements(By.tagName("select"));
         WebElement chooseArtWork = optionsDropdowns.get(2);
@@ -234,11 +281,13 @@ public class TestProductPages {
         optionsDropdowns = driver.findElement(By.id("Options")).findElements(By.tagName("select"));
         Select dropdownchooseArtwork = new Select(optionsDropdowns.get(1));
         dropdownchooseArtwork.selectByIndex(1);
+        log.info("Click on Add to Cart ");
         WebElement addToCartButtonDown = driver.findElement(By.className("AddToCartAction"));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].removeAttribute('disabled','disabled')", addToCartButtonDown);
         addToCartButtonDown.click();
         String justAddedProductName = driver.findElement(By.className("details")).findElement(By.className("name")).getText();
+        log.info("Confirm that Same Product is displayed");
         assertTrue(productName.contains(justAddedProductName));
     }
 

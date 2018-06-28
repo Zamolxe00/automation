@@ -1,3 +1,4 @@
+import org.apache.log4j.Logger;
 import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -16,6 +17,7 @@ public class TestTestimonialsPage {
 
     private WebDriver driver;
     private StringBuffer verificationErrors = new StringBuffer();
+    private Logger log = Logger.getLogger(TestTestimonialsPage.class);
 
     @BeforeClass
     public static void setUpPath() {
@@ -41,6 +43,7 @@ public class TestTestimonialsPage {
 
     @Test
     public void clickWriteReview() throws InterruptedException {
+        log.info("Test write a review option from product page link ");
         driver.get("http://www.theperfecturn.com/photo-engraved-pendant-gold-rectangle-p-2720.html");
         WebElement reviewButton = driver.findElement(By.linkText("Write a review"));
         reviewButton.click();
@@ -75,11 +78,15 @@ public class TestTestimonialsPage {
 //-> go to PM3720 -> Identify the testimonial o right sidebar -> Click on Read More a review section -> Confirm the current Url contains “testimonails”
     @Test
     public void clickReadMore() throws InterruptedException {
+        log.info("Test go to testimonial page from product page");
+        log.info("go to PM3720");
         driver.get("http://www.theperfecturn.com/photo-engraved-pendant-gold-rectangle-p-2720.html");
+        log.info("Click on Read More element on the page ");
         WebElement readMoreButton = driver.findElement(By.className("read-more"));
         JavascriptExecutor ex = (JavascriptExecutor) driver;
         ex.executeScript("arguments[0].click();", readMoreButton);
         Thread.sleep(1000);
+        log.info("Testimonials  Page is displayed in browser" );
         assertTrue(driver.getCurrentUrl().contains("testimonials"));
     }
 

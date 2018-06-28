@@ -1,3 +1,4 @@
+import org.apache.log4j.Logger;
 import org.junit.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -18,6 +19,7 @@ import static org.junit.Assert.fail;
 public class TestCategoryPages {
     private WebDriver driver;
     private StringBuffer verificationErrors = new StringBuffer();
+    private Logger log = Logger.getLogger(TestCategoryPages.class);
 
     @BeforeClass
     public static void setUpPath() {
@@ -42,6 +44,10 @@ public class TestCategoryPages {
 // -> Confirm that On Category Page BreadCrumbNavigation is available
     @Test
     public void checkCategoryDescriptionAndBreadCrumb() {
+        log.info("Select Jewelry Category from Header Menu Drop-Down");
+        log.info("Click on Category Title");
+        log.info("Identify Breadcrumb and confirm presence on page");
+        log.info("Confirm Category Page Description is displayed in browser" );
         WebElement element = driver.findElement(By.linkText("Jewelry"));
         Actions action = new Actions(driver);
         action.moveToElement(element).build().perform();
@@ -58,12 +64,15 @@ public class TestCategoryPages {
 // -> Confirm the current Url contains “cremation-jewelry-finder”
     @Test
     public void checkJewelryFinder() {
+        log.info("Select Jewelry Category from Header Menu Drop-Down");
         WebElement element = driver.findElement(By.linkText("Jewelry"));
         Actions action = new Actions(driver);
         action.moveToElement(element).build().perform();
         driver.findElement(By.linkText("Jewelry")).click();
+        log.info("Identify and Click on Jewelry Finder ");
         WebElement jewelryFinder = driver.findElement(By.className("category-finder-banner"));
         jewelryFinder.click();
+        log.info("Confirm Jewelry Finder Page is displayed in browser" );
         assertTrue(driver.getCurrentUrl().contains("cremation-jewelry-finder"));
     }
 
@@ -72,12 +81,15 @@ public class TestCategoryPages {
 // -> Confirm the current Url contains “memorial-product-finder”
     @Test
     public void checkMemorialFinder() {
+        log.info("Select Comfort Products Category from Header Menu Drop-Down");
         WebElement element = driver.findElement(By.linkText("Comfort Products"));
         Actions action = new Actions(driver);
         action.moveToElement(element).build().perform();
         driver.findElement(By.linkText("Comfort Products")).click();
+        log.info("Identify and Click on Memorial Finder ");
         WebElement memorialFinder = driver.findElement(By.className("category-finder-banner"));
         memorialFinder.click();
+        log.info("Confirm Memorial Product Finder Page is displayed in browser" );
         assertTrue(driver.getCurrentUrl().contains("memorial-product-finder"));
     }
 
@@ -86,22 +98,29 @@ public class TestCategoryPages {
 
     @Test
     public void checKCremationUrnFinder() {
+        log.info("Select Cremation Urns Category from Header Menu Drop-Down");
         WebElement element = driver.findElement(By.linkText("Cremation Urns"));
         Actions action = new Actions(driver);
         action.moveToElement(element).build().perform();
         driver.findElement(By.linkText("Cremation Urns")).click();
+        log.info("Identify and Click on Cremtion Urn Finder ");
         WebElement cremationUrnFinder = driver.findElement(By.className("category-finder-banner"));
         cremationUrnFinder.click();
+        log.info("Select People");
         List<WebElement> answer1Buttons = driver.findElement(By.id("UrnFinderQuery")).findElement(By.className("dialog-1")).findElements(By.tagName("button"));
         answer1Buttons.get(0).click();
         List<WebElement> answer2Buttons = driver.findElement(By.id("UrnFinderQuery")).findElement(By.className("dialog-2")).findElements(By.tagName("button"));
+        log.info("Select All Ashes");
         answer2Buttons.get(0).click();
+        log.info("Volume 150");
         WebElement poundInput = driver.findElement(By.id("volumeInput"));
         poundInput.click();
         poundInput.clear();
         poundInput.sendKeys("150");
         WebElement showUrns = driver.findElement(By.linkText("Show urns"));
+        log.info("Show Urns");
         showUrns.click();
+        log.info("Confirm urns for people are displayed in browser" );
         assertTrue(driver.getCurrentUrl().contains("popularity&action=results"));
     }
 
@@ -110,7 +129,10 @@ public class TestCategoryPages {
 // //-> validate that the page oppened is a category type  page
     @Test
     public void checkCategoryListings() {
+        log.info("Test");
+        log.info("open Memorial Jewelry Page ");
         driver.get("http://www.theperfecturn.com/memorial-jewelry");
+        log.info("Identify Category Card Elements and Click on first card from list" );
         List<WebElement> productGrid = driver.findElements(By.tagName("a"));
         List<WebElement> categoryItems = new ArrayList<WebElement>();
         for (WebElement prod : productGrid)
@@ -118,6 +140,7 @@ public class TestCategoryPages {
                 categoryItems.add(prod);
         assertTrue(categoryItems.size() != 0);
         categoryItems.get(0).click();
+        log.info("Confirm  Category Page is displayed in browser" );
         assertTrue(driver.getCurrentUrl().contains("-c-"));
     }
  //Check Product Listing in Category Page
@@ -126,7 +149,10 @@ public class TestCategoryPages {
 
     @Test
     public void checkProductListings() {
+        log.info("Test");
+        log.info("open Memorial Jewelry Page ");
         driver.get("http://www.theperfecturn.com/memorial-jewelry");
+        log.info("Identify Product Card Elements and Click on first card from list" );
         List<WebElement> productGrid = driver.findElements(By.tagName("a"));
         List<WebElement> productItems = new ArrayList<WebElement>();
         for (WebElement prod : productGrid)
@@ -134,6 +160,7 @@ public class TestCategoryPages {
                 productItems.add(prod);
         assertTrue(productItems.size() != 0);
         productItems.get(0).click();
+        log.info("Confirm  Product Page is displayed in browser" );
         assertTrue(driver.getCurrentUrl().contains("-p-"));
     }
 
@@ -142,17 +169,20 @@ public class TestCategoryPages {
 // -> Sort By “review” option -> confirm that the products displayed are categorized by reviews descendent order
     @Test
     public void testSortAndFilter() {
+        log.info("Test Sort by color and filter by reviews usage" );
+        log.info("Select Cremation Urns -> People Category from Header Menu Drop-Down");
         WebElement cremationUrnsDroplist = driver.findElement(By.linkText("Cremation Urns"));
         Actions action = new Actions(driver);
         action.moveToElement(cremationUrnsDroplist).build().perform();
-
         driver.findElement(By.id("PeopleBanner")).findElement(By.tagName("a")).click();
-
+        log.info("Select Color Black ");
         WebElement color = driver.findElement(By.partialLinkText("Black"));
         color.click();
-       driver.findElement(By.linkText("Reviews")).click();
+        log.info("Click on Reviews Element");
+        driver.findElement(By.linkText("Reviews")).click();
         List<WebElement> ratingList = driver.findElements(By.className("reviewers"));
         LinkedList<Double> ratings = new LinkedList<Double>();
+        log.info("Confirm that the products are displayed on page in descendent order based on Reviews number ");
         for (WebElement ratingElement : ratingList) {
             String ratingString = ratingElement.getText().replace('(', ' ').replace(')', ' ').trim();
             ratings.add(Double.parseDouble(ratingString));
@@ -162,41 +192,25 @@ public class TestCategoryPages {
         }
     }
 
-//Category page Test
-// Pets  Cremation Urns :Test Sorting Option
-//Sort by rating  lowest first + filter by color
-
-    @Test
-    public void testFilterColor() {
-        driver.get("http://www.theperfecturn.com/cremation-urn-finder?sort=reviews&sort_order=desc&filters=&action=results&type=pet");
-        WebElement color = driver.findElement(By.partialLinkText("Black"));
-        color.click();
-        List<WebElement> ratingList = driver.findElements(By.className("reviewers"));
-        List<Double> ratings = new ArrayList<Double>();
-        for (WebElement ratingElement : ratingList) {
-            String ratingString = ratingElement.getText().replace('(', ' ').replace(')', ' ').trim();
-
-            ratings.add(Double.parseDouble(ratingString));
-        }
-        for (int i = 0; i < ratings.size() - 1; i++) {
-            assertTrue(ratings.get(i) >= ratings.get(i + 1));
-        }
-    }
+//Test Start Over Button
  //This process describes following steps: Hover Over Categories Menu in header -> Click on Cremation Urns For People -> Identify Filter “Black” ->Click on Start over button
 // -> confirm that Cremation Urn Finder page displays
 
     @Test
     public void testStartOverButton() {
+        log.info("Testing Start over Button usage" );
+        log.info("Select Cremation Urns -> People Category from Header Menu Drop-Down");
         WebElement cremationUrnsDroplist = driver.findElement(By.linkText("Cremation Urns"));
         Actions action = new Actions(driver);
         action.moveToElement(cremationUrnsDroplist).build().perform();
-
         driver.findElement(By.id("PeopleBanner")).findElement(By.tagName("a")).click();
-
+        log.info("Select Color Black ");
         WebElement color = driver.findElement(By.partialLinkText("Black"));
         color.click();
+        log.info("Click Start Over ");
         WebElement startOver = driver.findElement(By.linkText("Start over"));
         startOver.click();
+        log.info("Confirm Cremation Urn Finder is displayed in browser" );
         assertTrue(driver.getCurrentUrl().contains("cremation-urn-finder"));
     }
 

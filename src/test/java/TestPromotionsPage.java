@@ -1,3 +1,4 @@
+import org.apache.log4j.Logger;
 import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,6 +16,7 @@ import static org.junit.Assert.fail;
 public class TestPromotionsPage {
     private WebDriver driver;
     private StringBuffer verificationErrors = new StringBuffer();
+    private Logger log = Logger.getLogger(TestPromotionsPage.class);
 
     @BeforeClass
     public static void setUpPath() {
@@ -39,6 +41,10 @@ public class TestPromotionsPage {
 
     @Test
     public void testMainPromoBanner() {
+        log.info("Go to Homepage" );
+        log.info("Check  Main Promo Banner " );
+        log.info("If product banner is displayed, retain Main Promo Banner hiperlink , click on Main Promo Banner " );
+        log.info("Confirm page oppened is similar to Main Promo banner Hyperlink" );
         assertTrue(isElementPresent(By.id("MainPromo")));
         WebElement MainPromoBannerLink = driver.findElement(By.id("MainPromo"));
         String bannerLink = driver.findElement(By.id("MainPromo")).findElement(By.tagName("a")).getAttribute("href");
@@ -56,6 +62,10 @@ public class TestPromotionsPage {
 
     @Test
     public void testMainPromoSecondBanner() {
+        log.info("Go to Homepage" );
+        log.info("Check  Main Promo Second Banner" );
+        log.info("If product banner is displayed, retain Main Promo Banner hiperlink , click on Main Promo Banner " );
+        log.info("Confirm page oppened is similar to Main Promo banner Hyperlink" );
         assertTrue(isElementPresent(By.id("MainPromo")));
         List<WebElement> bannerLinks = driver.findElement(By.id("MainPromo")).findElements(By.tagName("a"));
         WebElement MainPromoBannerLink = bannerLinks.get(1);
@@ -79,6 +89,11 @@ public class TestPromotionsPage {
 
     @Test
     public void testDailyDealBanner() {
+        log.info("Go to Homepage" );
+        log.info("Check Daily Deal  Banner " );
+        log.info("If Daily Deal banner is displayed, retain Banner hiperlink , click on  Banner " );
+        log.info("Confirm page oppened is promotions page if no daily deal is active" );
+        log.info("Confirm page oppened is  product page if  daily deal is active" );
         WebElement DailyDealBannerLink = driver.findElement(By.id("DailyDeal"));
         String productLink = DailyDealBannerLink.findElement(By.tagName("a")).getAttribute("href");
 
